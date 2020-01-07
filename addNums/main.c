@@ -8,9 +8,17 @@ int addNums(int num1, int num2) {
 
 
 int main() {
-    int num1 = 3;
-    int num2 = 5;
-    printf("%d", addNums(num1, num2), "%n");
-    return 0;    
+    int num1;
+    int num2;
+
+    // Get numbers to add
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+
+    printf("The numbers %d and %d add to equal %d.\n", num1, num2, addNums(num1, num2));
+    return 0; 
 }
 
