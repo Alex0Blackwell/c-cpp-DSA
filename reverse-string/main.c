@@ -2,21 +2,24 @@
 
 
 int main() {
-   char string[10] = "Testing";
-   int length = 0;
-   char res[10];
+   char string[100];
+   printf("Enter a sentence below\n");
+   scanf("%[^\n]", string);  // accept anything except return
+   
 
-   int i;
-   for(i = 0; string[i] != '\0'; i++);
-   length = i;  // Now we have the length of the string
-   printf("The length of %s is %d.\n", string, i);
+   char res[100];
+   
+   int len = 0;
+   while(string[len] != '\0') {
+      len ++;
+   }
    
    int c = 0;
-   for(int j = i; j > -1; j--) {
+   for(int j = len; j > -1; j--) {
       // Iterate backwards
       res[c] = string[j-1];
       c ++;
    }
-   printf("The reverse of %s is %s.\n", string, res); 
+   printf("The reverse of \"%s\"\nis: \"%s\".\n", string, res); 
 }
 
