@@ -10,10 +10,14 @@ void swap(int *a, int *b) {
 }
 
 
-int main() {
-   int a = 55, b = 99;
+int main(void) {
+   int a, b;
+   a = 55;
+   b = 99;
 
    printf("a = %d, b = %d\n", a, b);
    swap(&a, &b);  // Now swap using addresses
    printf("a = %d, b = %d\n", a, b);
+   
+   return 0;
 }
