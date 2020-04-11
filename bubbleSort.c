@@ -1,33 +1,42 @@
 #include <stdio.h>
 
 
-int sort(int * ptr,int array[], int len) {
-   int res[len];
+void printArr(int array[], int len) {
+    /* void function for printing the array */
+    printf("The values of returned are:\n");
+    for(int j = 0; j < len; j++)
+	printf("%d ", array[j]);
+    printf("\n");
 
-   int c = 0;
-   for(; ptr < array + len; ptr++) {
-      for(int ptrNext = ptr+1; ptrNext < array + len; ptrNext++) {
-	 printf("ptr: %d ptrNext: %d\n", ptr, ptrNext);
-	 if(* ptrNext < * ptr) {
-	    array[c] = * ptrNext;
-	 }
-      }
-   c ++;
-   }
-   printf("The values in the array are:\n");
-   for(int i = 0; i < 8; i ++) {
-      printf("%d", array[i]);
-   }
+   return;
+}
+
+
+void sort(int array[], int len) {
+    /* bubble sort, O(n^2) */
+    for(int i = 0; i < len; i++) {
+	for(int j = i+1; j < len; j++) {
+	    if(array[j] < array[i]) {
+		/* swap the two */
+		int _temp = array[i];
+		array[i] = array[j];
+		array[j] = _temp;
+	    }
+	}
+    }
+    return;
 }
 
 
 int main() {
-   int array1[8] = {3, 4, 3, 7, 5, 8, 9, 0};
-   int * ptr1 = array1;
+   int arr[8] = {3, 4, 3, 7, 5, 8, 9, 0};
+   int arrIn[50] = {};
+   int i = 0;
 
-   sort(ptr1, array1, 8);
-   /*printf("The values of returned are:\n");
-   for(int i = 0; i < 8; i++)
-      printf("%d ", returned[i]);
-   printf("\n");*/
+   while(scanf("%d", &arrIn[i++]) != EOF);
+
+   sort(arrIn, i-1);
+   printArr(arrIn, i-1);
+
+   return 0;
 }
