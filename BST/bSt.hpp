@@ -27,5 +27,6 @@ class Bst {
 	/* methods */
 	void insert(int val);
 	void remove(int val);
+	bool exists(int val);
 };
 

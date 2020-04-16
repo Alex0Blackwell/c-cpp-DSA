@@ -27,6 +27,7 @@ class Bst {
 	/* methods */
 	void insert(int val);
 	void remove(int val);
+	bool exists(int val);
 };
 
 node_t *Bst::getRoot(void) {
@@ -135,3 +136,29 @@ void Bst::remove(int val) {
     curr = root;
     return;
 }
+
+
+bool Bst::exists(int val) {
+    if(curr == NULL) {
+	return false;
+    }
+    if(curr->data == val) {
+	return true;
+    }
+    else if(curr->data > val) {
+	curr = curr->left;
+	if(exists(val)) {
+	    curr = root;
+	    return true;
+	}
+    }
+    else if(curr->data < val) {
+	curr = curr->right;
+	if(exists(val)) {
+	    curr = root;
+	    return true;
+	}
+    }
+    return false;
+}
+
