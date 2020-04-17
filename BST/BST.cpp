@@ -169,28 +169,4 @@ void BST::descending(BST *root) {
     
     return;
 }
-  
-
-// Driver code 
-int main() 
-{ 
-    BST b, *root = NULL; 
-    root = b.insert(root, 0); 
-
-    for(int i = -20; i <= 20; i += 2) {
-	b.insert(root, i);
-    }
-
-    
-    cout << "Inorder\n";
-    b.inorder(root); 
-    cout << "Preorder\n";
-    b.preorder(root); 
-    cout << "Postorder\n";
-    b.postorder(root); 
-    cout << "Descending\n";
-    b.descending(root);
-    return 0; 
-} 
-  
 
