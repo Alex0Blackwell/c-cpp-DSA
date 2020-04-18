@@ -22,16 +22,21 @@ int main(void) {
 
     int kth;
     cout << "get the least element\n";
-    kth = b.retKth(root, 1);
-    cout << kth << endl;
-
-    cout << "get the 3rd least element\n";
-    kth = b.retKth(root, 3);
+    kth = b.kthSmallest(root, 1);
     cout << kth << endl;
 
     cout << "get the 8th least element\n";
-    kth = b.retKth(root, 8);
+    kth = b.kthSmallest(root, 8);
     cout << kth << endl;
+
+    cout << "get the greatest element\n";
+    kth = b.kthLargest(root, 1);
+    cout << kth << endl;
+
+    cout << "get the 6th greatest element\n";
+    kth = b.kthLargest(root, 6);
+    cout << kth << endl;
+
 
     cout << "Inorder\n";
     b.inorder(root);
@@ -55,6 +60,9 @@ int main(void) {
 
     cout << "The least depth of the tree is: (expect 3)\n";
     cout << b.leastDepth(root) << endl;
+
+    cout << "Level order traversal:\n";
+    b.levelOrderTraversal(root);
 
 
     return 0;

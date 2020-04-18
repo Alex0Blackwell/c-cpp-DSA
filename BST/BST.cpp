@@ -3,6 +3,7 @@
 #include <iostream> 
 #include <vector>
 #include <bits/stdc++.h>
+#include <queue>
 
 #include "BST.hpp"
 
@@ -67,13 +68,33 @@ void BST::makeVecAsc(BST *root) {
     makeVecAsc(root->right);
 }
 
-int BST::retKth(BST *root, int k) {
+int BST::kthSmallest(BST *root, int k) {
     makeVecAsc(root);
     if(k < 0 || k > asc.size()) {
 	cout << "Index does not exist!" << endl;
 	return 0;
     } else {
 	return asc[k-1];
+    }
+}
+
+vector<int> des;
+void BST::makeVecDes(BST *root) {
+    if(!root) {
+	return;
+    }
+    makeVecDes(root->right);
+    des.push_back(root->data);
+    makeVecDes(root->left);
+}
+
+int BST::kthLargest(BST *root, int k) {
+    makeVecDes(root);
+    if(k < 0 || k > asc.size()) {
+	cout << "Index does not exist!" << endl;
+	return 0;
+    } else {
+	return des[k-1];
     }
 }
 
@@ -169,6 +190,23 @@ int BST::leastDepth(BST* root) {
 	leastRightSide = INT_MAX; 
 
     return min(leastLeftSide, leastRightSide) + 1;
+}
+
+void BST::levelOrderTraversal(BST *root) {
+    queue<BST*> q;
+    BST *curr;
+    q.push(root);
+    while(!q.empty()) {
+	curr = q.front();
+	q.pop();
+	cout << curr->data << ' ';
+	if(curr->left != NULL)
+	    q.push(curr->left);
+	if(curr->right!= NULL)
+	    q.push(curr->right);
+    }
+    cout << endl;
+    return;
 }
 /* // remove not working
 BST* BST::minValueBST(BST *bst) 
