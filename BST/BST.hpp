@@ -16,6 +16,9 @@ class BST {
 	BST* deleteBST(BST *, int data);  // not working 
 	BST* minValueBST(BST *);
 
+	// getters and setters
+	int getData(void);
+
 	// methods
 	void inorder(BST *); 
 	void preorder(BST *); 
@@ -23,5 +26,7 @@ class BST {
 	void descending(BST *); 
 	void makeVecAsc(BST *);
 	int retKth(BST *, int);
+	bool search(BST *, int);
+	BST *lowestCommonAnc(BST *, int, int);
 }; 
 

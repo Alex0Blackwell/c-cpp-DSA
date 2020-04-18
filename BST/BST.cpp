@@ -19,6 +19,10 @@ BST :: BST(int value) {
     data = value; 
     left = right = NULL; 
 } 
+
+int BST::getData(void) {
+    return data;
+}
   
 
 BST* BST :: insert(BST *root, int value) { 
@@ -110,6 +114,41 @@ void BST::descending(BST *root) {
     return;
 }
 
+bool BST::search(BST *root, int target) {
+    if(root == NULL) {
+	return false;
+    }
+    else if(root->data == target) {
+	return true;
+    }
+    else if(root->data > target) {
+	return search(root->left, target); 
+    }
+    else if(root->data < target) {
+	return search(root->right, target); 
+    }
+    return false;
+}
+
+BST *BST::lowestCommonAnc(BST *root, int targetA, int targetB) {
+    if(root == NULL) {
+	return NULL;
+    }
+    if(root->data == targetA || root->data == targetB) {
+	return root;
+    }
+    BST *left = lowestCommonAnc(root->left, targetA, targetB);
+    BST *right = lowestCommonAnc(root->right, targetA, targetB);
+
+    if(left != NULL && right != NULL) {
+	return root;
+    }
+    if(left == NULL) {
+	return right;
+    } else {
+	return left;
+    }
+}
 /* // remove not working
 BST* BST::minValueBST(BST *bst) 
 { 
