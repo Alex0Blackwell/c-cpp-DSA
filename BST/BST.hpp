@@ -28,5 +28,6 @@ class BST {
 	int retKth(BST *, int);
 	bool search(BST *, int);
 	BST *lowestCommonAnc(BST *, int, int);
+	int leastDepth(BST *);
 }; 
 

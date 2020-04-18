@@ -53,6 +53,9 @@ int main(void) {
     anc = b.lowestCommonAnc(root, -5, 30);
     cout << anc->getData() << endl;
 
+    cout << "The least depth of the tree is: (expect 3)\n";
+    cout << b.leastDepth(root) << endl;
+
 
     return 0;
 }

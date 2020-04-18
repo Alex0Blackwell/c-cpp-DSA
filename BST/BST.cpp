@@ -2,6 +2,7 @@
 
 #include <iostream> 
 #include <vector>
+#include <bits/stdc++.h>
 
 #include "BST.hpp"
 
@@ -148,6 +149,26 @@ BST *BST::lowestCommonAnc(BST *root, int targetA, int targetB) {
     } else {
 	return left;
     }
+}
+
+int BST::leastDepth(BST* root) {
+    if(root == NULL)
+	return 0;
+    if(root->left == NULL && root->right == NULL) {
+	// if leaf
+	return 1;
+    }
+    int leastLeftSide, leastRightSide;
+    if(root->left != NULL)
+	leastLeftSide = leastDepth(root->left);
+    else
+	leastLeftSide = INT_MAX;  // use a sentinel
+    if(root->right != NULL)
+	leastRightSide = leastDepth(root->right);
+    else
+	leastRightSide = INT_MAX; 
+
+    return min(leastLeftSide, leastRightSide) + 1;
 }
 /* // remove not working
 BST* BST::minValueBST(BST *bst) 
