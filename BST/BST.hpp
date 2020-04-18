@@ -21,5 +21,7 @@ class BST {
 	void preorder(BST *); 
 	void postorder(BST *); 
 	void descending(BST *); 
+	void makeVecAsc(BST *);
+	int retKth(BST *, int);
 }; 
 

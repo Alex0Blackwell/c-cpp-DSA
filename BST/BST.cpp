@@ -1,35 +1,18 @@
 /* Binary Search tree */
 
 #include <iostream> 
-using namespace std; 
-  
-class BST { 
-    int data; 
-    BST *left, *right; 
-  
-    public: 
-      
-    // Default constructor. 
-    BST(); 
-      
-    // Parameterized constructor. 
-    BST(int); 
-      
-    // Insert function. 
-    BST* insert(BST *, int);
-    BST* deleteBST(BST *, int data);
-    BST* minValueBST(BST *);
+#include <vector>
 
-    // methods
-    void inorder(BST *); 
-    void preorder(BST *); 
-    void postorder(BST *); 
-    void descending(BST *); 
-}; 
-  
+#include "BST.hpp"
+
+using namespace std; 
+
 
 // Default Constructor definition. 
-BST :: BST() : data(0), left(NULL), right(NULL){} 
+BST :: BST() {
+    data = 0;
+    left = right = NULL;
+} 
   
 // Parameterized Constructor definition. 
 BST :: BST(int value) { 
@@ -55,6 +38,78 @@ BST* BST :: insert(BST *root, int value) {
     // Return 'root' node, after insertion or if it already exists. 
     return root; 
 } 
+ 
+// Inorder traversal function. 
+// This gives data in sorted order. 
+void BST::inorder(BST *root) { 
+    if(!root) { 
+        return; 
+    } 
+    inorder(root->left); 
+    cout << root->data << endl; 
+    inorder(root->right); 
+
+    return;
+} 
+
+vector<int> asc;
+void BST::makeVecAsc(BST *root) {
+    if(!root) {
+	return;
+    }
+    makeVecAsc(root->left);
+    asc.push_back(root->data);
+    makeVecAsc(root->right);
+}
+
+int BST::retKth(BST *root, int k) {
+    makeVecAsc(root);
+    if(k < 0 || k > asc.size()) {
+	cout << "Index does not exist!" << endl;
+	return 0;
+    } else {
+	return asc[k-1];
+    }
+}
+
+// Preorder traversal function.
+// This gives data in preorder.
+void BST::preorder(BST *root) {
+    if(!root) {
+	return;
+    }
+    cout << root->data << endl;
+    preorder(root->left);
+    preorder(root->right);
+
+    return;
+}
+
+
+// Postorder traversal function.
+// This gives data in postorder.
+void BST::postorder(BST *root) {
+    if(!root) {
+	return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << endl;
+    
+    return;
+}
+
+void BST::descending(BST *root) {
+    if(!root) {
+	return;
+    }
+    descending(root->right);
+    cout << root->data << endl;
+    descending(root->left);
+    
+    return;
+}
+
 /* // remove not working
 BST* BST::minValueBST(BST *bst) 
 { 
@@ -115,58 +170,4 @@ BST* BST::deleteBST(struct BST* root, int key)
     return root; 
 } 
 */
-  
-// Inorder traversal function. 
-// This gives data in sorted order. 
-void BST::inorder(BST *root) 
-{ 
-    if(!root) 
-    { 
-        return; 
-    } 
-    inorder(root->left); 
-    cout << root->data << endl; 
-    inorder(root->right); 
-
-    return;
-} 
-
-
-// Preorder traversal function.
-// This gives data in preorder.
-void BST::preorder(BST *root) {
-    if(!root) {
-	return;
-    }
-    cout << root->data << endl;
-    preorder(root->left);
-    preorder(root->right);
-
-    return;
-}
-
-
-// Postorder traversal function.
-// This gives data in postorder.
-void BST::postorder(BST *root) {
-    if(!root) {
-	return;
-    }
-    postorder(root->left);
-    postorder(root->right);
-    cout << root->data << endl;
-    
-    return;
-}
-
-void BST::descending(BST *root) {
-    if(!root) {
-	return;
-    }
-    descending(root->right);
-    cout << root->data << endl;
-    descending(root->left);
-    
-    return;
-}
-
+ 

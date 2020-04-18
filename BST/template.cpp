@@ -13,6 +13,20 @@ int main(void) {
 	b.insert(root, i);
     }
 
+    cout << "get the 3rd least element\n";
+    int kth = b.retKth(root, 3);
+    cout << kth << endl;
+
+    cout << "get the least element\n";
+    kth = b.retKth(root, 1);
+    cout << kth << endl;
+
+
+    cout << "get the 10th least element\n";
+    kth = b.retKth(root, 10);
+    cout << kth << endl;
+
+
     cout << "Inorder\n";
     b.inorder(root);
     cout << "Descending\n";
