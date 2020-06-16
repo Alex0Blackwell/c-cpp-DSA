@@ -3,7 +3,7 @@
 ## Table of contents
 * [Overview](#overview)
 * [C Programs](#c-programs)
-* [C++ Programs](#c++-programs)
+* [C++ Programs](#c-programs-1)
 * [Data Structures](#data-structures)
 
 ## Overview
@@ -89,30 +89,30 @@ This repository is for small C and C++ programs I do outside of my school work.
 - *BST*
     - **Binary Search Tree**
 	- ***Methods include***
-	- insert
-	- delete
-	- get the minimum value
-	- print inorder
-	- print preorder
-	- print postorder
-	- print in descending order
-	- return the kth smallest number in the tree
-	- return the kth largest number in the tree
-	- search
-	- return BST of lowest common ancestor
-	- return the least depth from the root
-	- print the tree level by level
+		- insert
+		- delete
+		- get the minimum value
+		- print inorder
+		- print preorder
+		- print postorder
+		- print in descending order
+		- return the kth smallest number in the tree
+		- return the kth largest number in the tree
+		- search
+		- return BST of lowest common ancestor
+		- return the least depth from the root
+		- print the tree level by level
 - *binSearch-mergeSort*
     - **Binary Search and Merge Sort**
 - *linkedList*
     - **Linked List**
-	- ***Methods include***
-	- get head
-	- get tail
-	- get length
-	- append
-	- pop
-	- insert
+	- *Methods include*
+		- get head
+		- get tail
+		- get length
+		- append
+		- pop
+		- insert
 - *queue*
     - **Queue**
     	- ***Methods include***
