@@ -115,21 +115,37 @@ This repository is for small C and C++ programs I do outside of my school work.
 	- insert
 - *queue*
     - **Queue**
-	- ***Methods include***
-	- get head
-	- get tail
-	- get length
-	- append
-	- pop
+    	- ***Methods include***
+    	- get head
+    	- get tail
+    	- get length
+    	- append
+    	- pop
 - *stack*
     - **Stack**
-	- ***Methods include***
-	- get length
-	- push
-	- pop
-	- top
-	- check if empty
-	- print the stack
+    	- ***Methods include***
+    	- get length
+    	- push
+    	- pop
+    	- top
+    	- check if empty
+    	- print the stack
+- *dequeue*
+    - **Double Ended Queue**
+    	- ***Methods include***
+      - insert at the front
+      - insert at the back
+      - remove from the front
+      - remove from the back
+      - peek at the front
+      - peek at the back
+      - check if it's empty
+      - get the size
+      - copy one Deque into another
+      - deallocate all the Nodes
+      - print the Deque
+    - *Note that this program uses templates so it works for all types :)*
+
 
 ## License
 Licensed under the [GNU General Public License v3.0](LICENSE)
