@@ -193,7 +193,7 @@ Type Deque<Type>::peekBack(void) const {
 
 template <typename Type>
 bool Deque<Type>::empty(void) const {
-  return (head == tail);
+  return (head == nullptr);
 }
 
 
