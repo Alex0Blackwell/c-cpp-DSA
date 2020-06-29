@@ -103,47 +103,51 @@ This repository is for small C and C++ programs I do outside of my school work.
 		- return the least depth from the root
 		- print the tree level by level
 - *binSearch-mergeSort*
-    - **Binary Search and Merge Sort**
+  - **Binary Search and Merge Sort**
 - *linkedList*
-    - **Linked List**
-	- *Methods include*
-		- get head
-		- get tail
-		- get length
-		- append
-		- pop
-		- insert
+  - **Singly Linked List**
+	 - *Methods include*
+		- get value at front
+    - get value at back
+    - get the size
+    - get value at index *([])*
+    - append
+    - pop
+    - insert at an index
+    - clear
+    - assign lists *(=)*
+    - concatinate lists *(+)*
 - *queue*
-    - **Queue**
-    	- ***Methods include***
-    	- get head
-    	- get tail
-    	- get length
-    	- append
-    	- pop
+  - **Queue**
+  	- ***Methods include***
+  	- get head
+  	- get tail
+  	- get length
+  	- append
+  	- pop
 - *stack*
-    - **Stack**
-    	- ***Methods include***
-    	- get length
-    	- push
-    	- pop
-    	- top
-    	- check if empty
-    	- print the stack
+  - **Stack**
+  	- ***Methods include***
+  	- get length
+  	- push
+  	- pop
+  	- top
+  	- check if empty
+  	- print the stack
 - *dequeue*
-    - **Double Ended Queue**
-    	- ***Methods include***
-      - insert at the front
-      - insert at the back
-      - remove from the front
-      - remove from the back
-      - peek at the front
-      - peek at the back
-      - check if it's empty
-      - get the size
-      - copy one Deque into another
-      - deallocate all the Nodes
-      - print the Deque
+  - **Double Ended Queue**
+  	- ***Methods include***
+    - insert at the front
+    - insert at the back
+    - remove from the front
+    - remove from the back
+    - peek at the front
+    - peek at the back
+    - check if it's empty
+    - get the size
+    - copy one Deque into another
+    - deallocate all the Nodes
+    - print the Deque
     - *Note that this program uses templates so it works for all types :)*
 
 
