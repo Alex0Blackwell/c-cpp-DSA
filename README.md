@@ -106,7 +106,7 @@ This repository is for small C and C++ programs I do outside of my school work.
   - **Binary Search and Merge Sort**
 - *linkedList*
   - **Singly Linked List**
-	 - *Methods include*
+    - *Methods include*
 		- get value at front
     - get value at back
     - get the size
