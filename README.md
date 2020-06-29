@@ -104,10 +104,11 @@ This repository is for small C and C++ programs I do outside of my school work.
 		- print the tree level by level
 - *binSearch-mergeSort*
   - **Binary Search and Merge Sort**
+    - Binary and Merge sort with generics programming
 - *linkedList*
   - **Singly Linked List**
     - *Methods include*
-		- get value at front
+    - get value at front
     - get value at back
     - get the size
     - get value at index *([])*
