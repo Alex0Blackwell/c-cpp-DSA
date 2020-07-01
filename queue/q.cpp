@@ -6,90 +6,125 @@
 using namespace std;
 
 
-q_node *Q::getHead() {
-    return head;
+/* constructors for Node class */
+Node::Node() : val{0}, next{nullptr}
+{ }
+
+Node::Node(int val, Node *next) : val{val}, next{next}
+{ }
+
+
+/* constructors for Queue class */
+Queue::Queue() : head{nullptr}, tail{nullptr}, len{0}
+{ }
+
+Queue::Queue(int val) {
+  head = new Node(val, nullptr);
+  tail = head;
+  len = 1;
 }
 
-q_node *Q::getTail() {
-    return tail;
+Queue::~Queue() {
+  this->clear();
 }
 
-int Q::getLen() {
-    return len;
+/* methods for Queue class */
+
+bool Queue::empty(void) const {
+  return (head == nullptr && tail == nullptr && len == 0);
+}
+
+int Queue::size(void) const {
+  return len;
+}
+
+int Queue::front(void) const {
+  int res = -1;
+  if(head != nullptr)
+    res = head->val;
+
+  return res;
+}
+
+int Queue::back(void) const {
+  int res = -1;
+  if(tail != nullptr)
+    res = tail->val;
+
+  return res;
 }
 
 
-void Q::append(int val) {
-    /* if there are no elements, set the val to head and tail */
-    if(len == 0) {
-	head = new q_node;
-	head->data = val;
-	head->next = NULL;
-	tail = head;  // shallow copy
-	len++;
-    } else {
-	assert(len > 0);
-	/* use the tail to append a new node
-	this way we can do it in constant time rather than n */
-	q_node *appendEl = new q_node;
-	appendEl->data = val;
-	appendEl->next = NULL;
+void Queue::clear(void) {
+  Node *curr = head;
+  Node *prevNode = head;
 
-	tail->next = appendEl;
-	tail = appendEl;
-	len++;
+  while(curr != nullptr) {
+    prevNode = curr;
+    curr = curr->next;
+    delete prevNode;
+  }
+  len = 0;
+
+  return;
+}
+
+
+void Queue::push_back(int val) {
+  /* if there are no elements, set the val to head and tail */
+  if(head == nullptr) {
+    head = new Node(val, nullptr);
+    tail = head;  // shallow copy
+  } else {
+  	assert(len > 0);
+    // use tail to append node
+    Node *newNode = new Node(val, nullptr);
+  	tail->next = newNode;
+  	tail = newNode;
+  }
+  len++;
+
+  return;
+}
+
+
+void Queue::pop_front(void) {
+  if(len == 1) {
+  	delete head;
+  	head = tail = nullptr;
+  	len = 0;
+  }
+  else if(len > 1) {
+    Node *nextNode = head->next;
+  	delete head;
+  	head = nextNode;
+  	len--;
+  }
+  assert(len >= 0);
+
+  return;
+}
+
+
+Queue & Queue::operator= (const Queue & rhs) {
+  if(this != &rhs) {
+    this->clear();
+    Node *curr = rhs.head;
+    while(curr != nullptr) {
+      this->push_back(curr->val);
+      curr = curr->next;
     }
-    return;
+  }
+
+  return *this;
 }
 
 
-void Q::pop(void) {
-    if(len == 1) {
-	delete head;
-	head = tail = NULL;
-	len = 0;
-    }
-    else if(len > 1) {
-	q_node *second = head->next;
-	delete head;
-	head = second;
-	len--;
-    }
-}
-
-
-void Q::insert(int val, int index) {
-    /* first make sure the index is valid */
-    if(index >= 0 && index < len) {
-	if(index == 0) {
-	    if(len == 0) { 
-		append(val);
-	    } else {
-		q_node *insertNode = new q_node;
-		insertNode->data = val;
-		insertNode->next = head;
-		head = insertNode;
-		len++;
-	    }
-	} 
-	else if(index < len-1) {
-	    /* get the node before where we want to insert */
-	    q_node *insertNode = new q_node;
-	    q_node *currNode = head;
-	    q_node *nextLoc;
-
-	    for(int i = 1; i < index; i++) {
-		currNode = currNode->next;		
-	    }
-	    nextLoc = currNode->next;
-	    // insert the node
-	    currNode->next = insertNode;
-	    insertNode->data = val;
-	    insertNode->next = nextLoc;
-	    len++;
-	} else {
-	    assert(index == len-1);
-	    append(val);
-	}
-    }
+void Queue::print(void) const {
+  Node *curr = head;
+  while(curr != nullptr) {
+    cout << curr->val << ", ";
+    curr = curr->next;
+  }
+  cout << endl;
 }

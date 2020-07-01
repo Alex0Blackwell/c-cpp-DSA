@@ -121,11 +121,15 @@ This repository is for small C and C++ programs I do outside of my school work.
 - *queue*
   - **Queue**
   	- ***Methods include***
-  	- get head
-  	- get tail
-  	- get length
-  	- append
-  	- pop
+    - check if empty
+    - get the size of the Queue
+    - get the value at the front
+    - get the value at the back
+    - clear the Queue
+    - push to the back *O(n)*
+    - pop from the front *O(n)*
+    - assign Queue *(=)*
+    - print the queue
 - *stack*
   - **Stack**
   	- ***Methods include***

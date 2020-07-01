@@ -1,46 +1,47 @@
 #include <iostream>
+#include <assert.h>
 
 #include "q.hpp"
 
 using namespace std;
 
-
-void printList(Q list) {
-    q_node *current = list.getHead();
-    for(int i = 0; i < list.getLen(); i++) {
-	cout << current->data << ", ";
-	current = current->next;
-    } cout << '\n';
-}
-
-
 int main(void) {
-    Q list1;
+  Queue q1;
 
-    /* first let's append */
-    for(int i = 1; i < 10; i++) {
-	list1.append(i);
-    }
- 
-    printList(list1);
+  cout << "Testing back and push_back" << endl;
+  for(int i = 0; i < 10; ++i) {
+    q1.push_back(i);
+    assert(q1.back() == i);
+  }
+  q1.print();
 
-    /* it's insertion time and let's insert at corner cases such
-    as outside the allowed bounds, the beginning and the end */
-    cout << "let's insert 0's at index: 0, 2, and end!\n";
-    list1.insert(0, 0);
-    list1.insert(0, 2);
-    list1.insert(0, list1.getLen()-1);
-    list1.insert(0, -1);
-    list1.insert(0, 100);
+  cout << "Testing size" << endl;
+  assert(q1.size() == 10);
 
-    printList(list1);
-    
-    /* now let's pop (a few extra times
-    to make sure it's working for an empty list) */
-    cout << "It's popping time!\n";
-    for(int i = 0; i < 11; i++) {
-	list1.pop();
-	printList(list1);
-    }
-    
+  cout << "Testing front and pop_front" << endl;
+  for(int i = 0; i < 10; ++i) {
+    assert(q1.front() == i);
+    q1.pop_front();
+  }
+  assert(q1.size() == 0);
+
+  q1.pop_front();
+  assert(q1.size() == 0);
+
+  cout << "Test overloaded Queue constructor" << endl;
+  Queue q2(10);
+  q2.print();
+  assert(q2.front() == 10);
+
+  cout << "Test overloaded assignment operator" << endl;
+  q1 = q2;
+  assert(q1.front() == 10 && q1.size() == 1 && q2.size() == 1);
+  q2.push_back(2);
+  assert(q1.size() == 1 && q2.size() == 2);  // check for alias
+
+
+  cout << "\nNice! Completed with status code 0!" << endl;
+
+
+  return 0;
 }

@@ -1,36 +1,50 @@
-#include <iostream>
+#ifndef Q_H
+#define Q_H
+
 using namespace std;
 
 
-typedef struct _node {
-    _node *next;
-    int data;
-} q_node;
+class Node {
+public:
+  int val;
+  Node *next;
 
-
-class Q {
-    private:
-	q_node *head;
-	q_node *tail;
-	int len;
-    public:
-	Q() {  // constructor
-	    len = 0;
-	    head = tail = NULL;
-	}
-
-	/* setters and getters */
-	q_node *getHead();
-	q_node *getTail();
-	int getLen();
-	
-	/* other functions... */
-
-	/* add a given value to the end of the list O(1) */
-	void append(int val);
-	/* pop the first value of the list O(n) */
-	void pop(void);
-	/* inserts value at the index O(n),
-	preserves order */
-	void insert(int val, int index);
+  explicit Node();
+  explicit Node(int val, Node *next);
 };
+
+
+class Queue {
+private:
+  Node* head;
+  Node* tail;
+  int len;
+
+  public:
+    explicit Queue();
+    explicit Queue(int val);
+
+    ~Queue();
+
+  // accessors
+  bool empty(void) const;
+  int size(void)   const;
+  int front(void)  const;  // return -1 if empty
+  int back(void)   const;  // return -1 if empty
+
+
+  /* clears the Queue */
+  void clear(void);
+  /* add a given value to the end of the list O(1) */
+  void push_back(int val);
+  /* pop the first value of the list O(1) */
+  void pop_front(void);
+
+  /* assign one Queue to another */
+  Queue& operator= (const Queue & rhs);
+
+  /* print Queue for debugging */
+  void print(void) const;
+};
+
+#endif
