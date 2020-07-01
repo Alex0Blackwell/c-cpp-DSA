@@ -1,140 +1,118 @@
 #include <iostream>
+#include <assert.h>
+
+#include "stack.hpp"
 
 using namespace std;
 
-typedef struct _node {
-    int data;
-    _node *next;
-} node_t;
+
+/* constructors for Node class */
+Node::Node() : val{0}, next{nullptr}
+{ }
+
+Node::Node(int val, Node *next) : val{val}, next{next}
+{ }
 
 
-class Stack {
-    private:
-	node_t *head;
-	node_t *tail;
-	int len;
-    
-    public:
-	Stack() {
-	    head = tail = NULL;
-	    len = 0;
-	}
-	~Stack() {
-	    node_t *curr = head;
-	    while(curr != NULL) {
-		node_t *_toDelete = curr;
-		curr = curr->next;
-		delete _toDelete;
-		len = 0;
-	    }
-	}
+/* constructors for Stack class */
+Stack::Stack() : head{nullptr}, tail{nullptr}, len{0}
+{ }
 
-	/* getters and setters */
-	int getLen(void);
+Stack::Stack(int val) {
+  head = new Node(val, nullptr);
+  tail = head;
+  len = 1;
+}
 
-	/* methods */
-	void push(int val);  // push to tail
-	void pop(void);  // pop from head
-	bool isEmpty(void);
-	int top(void);
-	void print(void);
-};
+Stack::~Stack() {
+  this->clear();
+}
+
+/* methods for Stack class */
+
+bool Stack::empty(void) const {
+  return (head == nullptr && tail == nullptr && len == 0);
+}
+
+int Stack::size(void) const {
+  return len;
+}
+
+int Stack::top(void) const {
+  int res = -1;
+  if(head != nullptr)
+    res = head->val;
+
+  return res;
+}
 
 
-int Stack::getLen(void) {
-    return len;
+void Stack::clear(void) {
+  Node *curr = head;
+  Node *prevNode = head;
+
+  while(curr != nullptr) {
+    prevNode = curr;
+    curr = curr->next;
+    delete prevNode;
+  }
+  len = 0;
+
+  return;
 }
 
 
 void Stack::push(int val) {
-    if(head == NULL) {
-	node_t *el = new node_t;
-	el->data = val;
-	el->next = NULL;
-	
-	head = tail = el;
-    }
-    else {
-	node_t *secondLast = tail;
+  // if there are no elements, set the val to head and tail
+  if(head == nullptr) {
+    head = new Node(val, nullptr);
+    tail = head;  // shallow copy
+  } else {
+  	assert(len > 0);
+    head = new Node(val, head);
+  }
+  len++;
 
-	node_t *el = new node_t;
-	el->data = val;
-	el->next = NULL;
-
-	secondLast->next = el;
-	tail = el;
-    }
-    len++;
+  return;
 }
-
 
 void Stack::pop(void) {
-    if(head == NULL) {
-	cout << "Stack already empty!\n";
-    }
-    else {
-	node_t *second = head->next;
-	delete head;
-	head = second;
-	len--;
-    }
+  if(len == 1) {
+  	delete head;
+  	head = tail = nullptr;
+  	len = 0;
+  }
+  else if(len > 1) {
+    Node *nextNode = head->next;
+  	delete head;
+  	head = nextNode;
+  	len--;
+  }
+  assert(len >= 0);
+
+  return;
 }
 
 
-int Stack::top(void) {
-    int res = 0;
-    if(head != NULL) {
-	res = head->data;
-    } else {
-	res = 0;
+Stack & Stack::operator= (const Stack & rhs) {
+  if(this != &rhs) {
+    this->clear();
+    Node *curr = rhs.head;
+    while(curr != nullptr) {
+      this->push(curr->val);
+      curr = curr->next;
     }
-    return res;
+  }
+
+  return *this;
 }
 
 
-bool Stack::isEmpty(void) {
-    bool res = false;
-    if(!head) {
-	res = true;
-    }
-    return res;
-}
-
-
-void Stack::print(void) {
-    node_t *curr = head;
-    cout << "head | ";
-    if(curr != NULL) {
-	while(curr->next != NULL) {
-	    cout << curr->data << ", ";	
-	    curr = curr->next;
-	}
-	cout << curr->data << '\n';	
-    }
-    return;
-}
-
-
-int main(void) {
-    Stack s1;
-    
-    for(int i = 0; i < 10; i++) {
-	s1.push(i);
-	s1.print();
-    }
-
-    cout << "is empty? expect 0 " << s1.isEmpty() << '\n';
-    cout << "len? expect 10 " << s1.getLen() << '\n';
-
-    s1.print();
-
-    for(int i = 0; i < 12; i++) {
-	s1.print();
-	cout << "Top: " << s1.top() << '\n';
-	s1.pop();
-    }
-    cout << "is empty? expect 1 " << s1.isEmpty() << '\n';
-    cout << "len? expect 0 " << s1.getLen() << '\n';
-    
-    return 0;
+void Stack::print(void) const {
+  Node *curr = head;
+  while(curr != nullptr) {
+    cout << curr->val << ", ";
+    curr = curr->next;
+  }
+  cout << endl;
 }

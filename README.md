@@ -126,19 +126,21 @@ This repository is for small C and C++ programs I do outside of my school work.
     - get the value at the front
     - get the value at the back
     - clear the Queue
-    - push to the back *O(n)*
-    - pop from the front *O(n)*
+    - push to the back *O(1)*
+    - pop from the front *O(1)*
     - assign Queue *(=)*
-    - print the queue
+    - print the Queue
 - *stack*
   - **Stack**
   	- ***Methods include***
-  	- get length
-  	- push
-  	- pop
-  	- top
-  	- check if empty
-  	- print the stack
+    - check if empty
+    - get the size of the Stack
+    - get the value at the top
+    - clear the Stack
+    - push to the Stack *O(1)*
+    - pop from the Stack *O(1)*
+    - assign Stack *(=)*
+    - print the Stack
 - *dequeue*
   - **Double Ended Queue**
   	- ***Methods include***
