@@ -16,6 +16,8 @@ This repository is for small C and C++ programs I do outside of my school work.
     - first implementation of a binary search (those were the days)
 - binarySearch2.c
     - second implementation of a binary search
+- binarySearchCP.cpp
+    - HackerEarth problem found [here](https://www.hackerearth.com/practice/algorithms/searching/binary-search/tutorial/)
 - bubbleSort.c
     - everyone loves bubbles
 - compareArr.c
