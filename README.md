@@ -5,6 +5,7 @@
 * [C Programs](#c-programs)
 * [C++ Programs](#c-programs-1)
 * [Data Structures](#data-structures)
+* [Sorting](#sorting)
 
 ## Overview
 This repository is for small C and C++ programs I do outside of my school work.
@@ -88,8 +89,7 @@ This repository is for small C and C++ programs I do outside of my school work.
 
 ## Data Structures
 
-- *BST*
-    - **Binary Search Tree**
+- **Binary Search Tree**
 	- ***Methods include***
 		- insert
 		- delete
@@ -104,67 +104,60 @@ This repository is for small C and C++ programs I do outside of my school work.
 		- return BST of lowest common ancestor
 		- return the least depth from the root
 		- print the tree level by level
-
-- *linkedList*
-  - **Singly Linked List**
-    - *Methods include*
-    - get value at front
-    - get value at back
-    - get the size
-    - get value at index *([])*
-    - append
-    - pop
-    - insert at an index
-    - clear
-    - assign lists *(=)*
-    - concatinate lists *(+)*
-- *queue*
-  - **Queue**
-  	- ***Methods include***
-    - check if empty
-    - get the size of the Queue
-    - get the value at the front
-    - get the value at the back
-    - clear the Queue
-    - push to the back *O(1)*
-    - pop from the front *O(1)*
-    - assign Queue *(=)*
-    - print the Queue
-- *stack*
-  - **Stack**
-  	- ***Methods include***
-    - check if empty
-    - get the size of the Stack
-    - get the value at the top
-    - clear the Stack
-    - push to the Stack *O(1)*
-    - pop from the Stack *O(1)*
-    - assign Stack *(=)*
-    - print the Stack
-- *dequeue*
-  - **Double Ended Queue**
-  	- ***Methods include***
-    - insert at the front
-    - insert at the back
-    - remove from the front
-    - remove from the back
-    - peek at the front
-    - peek at the back
-    - check if it's empty
-    - get the size
-    - copy one Deque into another
-    - deallocate all the Nodes
-    - print the Deque
-    - *Note that this program uses templates so it works for all types :)*
+- **Singly Linked List**
+	- *Methods include*
+		- get value at front
+		- get value at back
+		- get the size
+		- get value at index *([])*
+		- append
+		- pop
+		- insert at an index
+		- clear
+		- assign lists *(=)*
+		- concatinate lists *(+)*
+- **Queue**
+	- ***Methods include***
+		- check if empty
+		- get the size of the Queue
+		- get the value at the front
+		- get the value at the back
+		- clear the Queue
+		- push to the back *O(1)*
+		- pop from the front *O(1)*
+		- assign Queue *(=)*
+		- print the Queue
+- **Stack**
+	- ***Methods include***
+		- check if empty
+		- get the size of the Stack
+		- get the value at the top
+		- clear the Stack
+		- push to the Stack *O(1)*
+		- pop from the Stack *O(1)*
+		- assign Stack *(=)*
+		- print the Stack
+- **Double Ended Queue**
+	- ***Methods include***
+		- insert at the front
+		- insert at the back
+		- remove from the front
+		- remove from the back
+		- peek at the front
+		- peek at the back
+		- check if it's empty
+		- get the size
+		- copy one Deque into another
+		- deallocate all the Nodes
+		- print the Deque
+		- *Note that this program uses templates so it works for all types :)*
 
 ## Sorting
-- *binSearch-mergeSort*
-  - **Binary Search and Merge Sort**
-    - Binary and Merge sort with generics programming
-- *quicksort*
-  - **Quicksort with median-of-three pivot**
-    - This Quicksort uses a median-of-three pivot. This means that the pivot is chosen by sorting the first element, the last and the middle element, and taking the median. This method ensures that the worst case O(n^2) becomes exponentially unlikely.
-    - An insertion sort is used for subarrays of size 10 or less. This is because the insertion sort is more optimal for very small arrays.
+- **Binary Search and Merge Sort**
+	- Binary and Merge sort with generics programming
+- **Quicksort with median-of-three pivot**
+	- This Quicksort uses a median-of-three pivot. This means that the pivot is chosen by sorting the first element, the last and the middle element, and taking the median. This method ensures that the worst case O(n^2) becomes exponentially unlikely.
+	- An insertion sort is used for subarrays of size 10 or less. This is because the insertion sort is more optimal for very small arrays.
 
 ## License
 Licensed under the [GNU General Public License v3.0](LICENSE)
