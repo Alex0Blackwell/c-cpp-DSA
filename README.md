@@ -104,9 +104,7 @@ This repository is for small C and C++ programs I do outside of my school work.
 		- return BST of lowest common ancestor
 		- return the least depth from the root
 		- print the tree level by level
-- *binSearch-mergeSort*
-  - **Binary Search and Merge Sort**
-    - Binary and Merge sort with generics programming
+
 - *linkedList*
   - **Singly Linked List**
     - *Methods include*
@@ -159,6 +157,14 @@ This repository is for small C and C++ programs I do outside of my school work.
     - print the Deque
     - *Note that this program uses templates so it works for all types :)*
 
+## Sorting
+- *binSearch-mergeSort*
+  - **Binary Search and Merge Sort**
+    - Binary and Merge sort with generics programming
+- *quicksort*
+  - **Quicksort with median-of-three pivot**
+    - This Quicksort uses a median-of-three pivot. This means that the pivot is chosen by sorting the first element, the last and the middle element, and taking the median. This method ensures that the worst case O(n^2) becomes exponentially unlikely.
+    - An insertion sort is used for subarrays of size 10 or less. This is because the insertion sort is more optimal for very small arrays.
 
 ## License
 Licensed under the [GNU General Public License v3.0](LICENSE)
