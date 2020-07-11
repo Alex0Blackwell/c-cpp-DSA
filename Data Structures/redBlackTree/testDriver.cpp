@@ -61,12 +61,48 @@ int main(void) {
   assert(!curr->right->left->isBlack);
   assert(curr->right->right->val == 'b');
   assert(!curr->right->right->isBlack);
-  //
-  // tree2.insert(25, 'f');
-  //
-  // tree2.insert(40, 'g');
-  //
-  // tree2.insert(80, 'h');
+
+  tree2.insert(25, 'f');
+  assert(curr->left->val == 'c');
+  assert(curr->right->val == 'e');
+  assert(!curr->right->isBlack);
+  assert(curr->right->left->val == 'd');
+  assert(curr->right->right->val == 'b');
+  assert(curr->right->right->isBlack);
+  assert(curr->right->right->right->val == 'f');
+  assert(!curr->right->right->right->isBlack);
+
+  tree2.insert(40, 'g');
+  assert(curr->left->val == 'c');
+  assert(curr->right->val == 'e');
+  assert(!curr->right->isBlack);
+  assert(curr->right->left->val == 'd');
+  assert(curr->right->right->val == 'f');
+  assert(curr->right->right->isBlack);
+  assert(curr->right->right->left->val == 'b');
+  assert(curr->right->right->right->val == 'g');
+  assert(!curr->right->right->right->isBlack);
+
+
+  tree2.insert(80, 'h');
+  curr = tree2.getRoot();
+  assert(curr->val == 'e');
+  assert(curr->left->val == 'a');
+  assert(!curr->left->isBlack);
+  assert(curr->left->left->val == 'c');
+  assert(curr->left->left->isBlack);
+  assert(curr->left->right->val == 'd');
+  assert(curr->left->right->isBlack);
+
+  assert(curr->right->val == 'f');
+  assert(!curr->right->isBlack);
+  assert(curr->right->right->val == 'g');
+  assert(curr->right->right->isBlack);
+  assert(curr->right->left->val == 'b');
+  assert(curr->right->left->isBlack);
+  assert(curr->right->right->right->val == 'h');
+  assert(!curr->right->right->right->isBlack);
+
 
 
   cout << "Insert test passed!" << endl;

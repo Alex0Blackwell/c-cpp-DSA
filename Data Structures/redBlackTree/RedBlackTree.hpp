@@ -255,9 +255,9 @@ void RedBlackTree::rightRightRotate(NodeT *node) {
   // attach this subtree to what points to grandparent
   if(grandparent->parent != nullptr) {
     if(grandparent->isLeftChild)
-    grandparent->parent->left = parent;
+      grandparent->parent->left = parent;
     else
-    grandparent->parent->right = parent;
+      grandparent->parent->right = parent;
   }
 
   // switch pointers for the right-right rotate case
@@ -304,6 +304,7 @@ void RedBlackTree::balance(NodeT *node) {
       makeUncleBlack(node, true);
 
       node = node->parent->parent;
+      node->isBlack = false;
       balance(node);
     } else {
       // uncle is black: 4 possible configurations
