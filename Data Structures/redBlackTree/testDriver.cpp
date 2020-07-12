@@ -84,7 +84,8 @@ int main(void) {
   assert(!curr->right->right->right->isBlack);
 
 
-  tree2.insert(80, 'h');
+  bool validInsert = tree2.insert(80, 'h');
+  assert(validInsert);
   curr = tree2.getRoot();
   assert(curr->val == 'e');
   assert(curr->left->val == 'a');
@@ -103,9 +104,20 @@ int main(void) {
   assert(curr->right->right->right->val == 'h');
   assert(!curr->right->right->right->isBlack);
 
+  validInsert = tree2.insert(80, 'h');
+  assert(!validInsert);
+
+  cout << "Insert test passed!" << endl
+  << "Testing search." << endl;
+
+  assert(tree2.search(80));
+  assert(!tree2.search(24));
+
+  cout << "Search test passed!" << endl;
 
 
-  cout << "Insert test passed!" << endl;
+  tree2.remove(40);
+
 
 
 
