@@ -55,6 +55,18 @@ private:
    */
   void balance(NodeT *node);
 
+
+  /**
+   * Left rotate given the sibling.
+   */
+  void leftRotate(NodeT *node);
+
+  /**
+   * Right rotate given the sibling.
+   */
+  void rightRotate(NodeT *node);
+
+
   /**
    * Black uncle rotation cases.
    * Assumes node is not root and node's parent is not root.
@@ -120,7 +132,7 @@ private:
    * Handle the cases for removing nodes where the node deleted is black and it's
    * replacement is black.
    */
-  void handleRemoveCases(NodeT *replacement, NodeT *sibling, NodeT *x, bool deletedIsBlack);
+  void handleRemoveCases(NodeT *replacement, NodeT *x, bool deletedIsBlack);
 
 
   /**
@@ -252,6 +264,60 @@ bool RedBlackTree::normalInsert(NodeT *curr, NodeT *node) {
     }
   }
   return false;
+}
+
+
+void RedBlackTree::leftRotate(NodeT *node) {
+  NodeT *parent = node->parent;
+  NodeT *grandparent;
+  bool grandExists = false;
+
+  if(parent->parent != nullptr) {
+    grandparent = parent->parent;
+    grandExists = true;
+  }
+
+  if(grandExists) {
+    if(!parent->isLeftChild)
+      grandparent->right = node;
+    else
+      grandparent->left = node;
+  }
+  parent->right = node->left;
+  node->left = parent;
+  parent->parent = node;
+
+  if(grandExists)
+    node->parent = grandparent;
+  else
+    node->parent = nullptr;
+}
+
+
+void RedBlackTree::rightRotate(NodeT *node) {
+  NodeT *parent = node->parent;
+  NodeT *grandparent;
+  bool grandExists = false;
+
+  if(parent->parent != nullptr) {
+    grandparent = parent->parent;
+    grandExists = true;
+  }
+
+  if(grandExists) {
+    if(!parent->isLeftChild)
+      grandparent->right = node;
+    else
+      grandparent->left = node;
+  }
+  parent->left = node->right;
+  node->right = parent;
+  parent->parent = node;
+
+  if(grandExists)
+    node->parent = grandparent;
+  else
+    node->parent = nullptr;
 }
 
 
@@ -476,10 +542,14 @@ NodeT* RedBlackTree::predecessor(NodeT *curr) const {
 }
 
 
-void RedBlackTree::handleRemoveCases(NodeT *replacement, NodeT *sibling, NodeT *x, bool deletedIsBlack) {
+void RedBlackTree::handleRemoveCases(NodeT *replacement, NodeT *x, bool deletedIsBlack) {
   // NOTE: we have used root as a sentinal for nullptr
-bool nephewsBlack = ((sibling->left == nullptr || sibling->left->isBlack) &&
-                      (sibling->right == nullptr || sibling->right->isBlack));
+  bool nephewsBlack = false;
+  NodeT *sibling = getSibling(x);
+  if(sibling != root) {
+    nephewsBlack = ((sibling->left == nullptr || sibling->left->isBlack) &&
+    (sibling->right == nullptr || sibling->right->isBlack));
+  }
 
   if(x != root && !x->isBlack) {
     // Case 0: node x is red
@@ -505,13 +575,22 @@ bool nephewsBlack = ((sibling->left == nullptr || sibling->left->isBlack) &&
     // }
 
 
-
-
-
   }
-  else if(x != root && x->isBlack && sibling->isBlack && nephewsBlack) {
+  else if((x == root || x->isBlack) && sibling->isBlack && nephewsBlack) {
     // Case 2: node x is black, it's sibling is black, and both of the sibling's
     // children are black
+    sibling->isBlack = false;
+    x = sibling->parent;
+
+    if(!x->isBlack)
+      x->isBlack = false;
+    else {
+      // go again with new x and new sibling
+      sibling = getSibling(x);
+      // RECURSE
+
+
+    }
   }
   else if(x != root && x->isBlack && sibling->isBlack) {
     // Case 3: node x is black, and it's sibling is black and...
@@ -529,6 +608,29 @@ bool nephewsBlack = ((sibling->left == nullptr || sibling->left->isBlack) &&
 
       }
 
+    }
+  }
+  else if(x->isBlack && sibling != nullptr && sibling->isBlack) {
+    // Case 4: node x is black and it's sibling is black and...
+    if(!sibling->isLeftChild && sibling->right != nullptr && !sibling->right->isBlack) {
+      // x is the left child, sibling's right child is red
+      sibling->isBlack = sibling->parent->isBlack;
+
+      sibling->parent->isBlack = true;
+
+      sibling->right->isBlack = true;
+
+      leftRotate(sibling);
+    }
+    if(sibling->isLeftChild && sibling->left != nullptr && !sibling->left->isBlack) {
+      // x is the right child, sibling's left child is red
+      sibling->isBlack = sibling->parent->isBlack;
+
+      sibling->parent->isBlack = true;
+
+      sibling->left->isBlack = true;
+
+      rightRotate(sibling);
     }
   }
 
@@ -583,8 +685,24 @@ void RedBlackTree::removeDriver(NodeT *replacement, NodeT *node) {
     // CASE: 1
     // deleted is red and replacement is black, color "replacement" red
     // and proceed to the appropriate case
-    replacement->isBlack = false;
-    handleRemoveCases(replacement, sibling, x, deletedIsBlack);
+
+    // attach x to replacement location
+    if(replacement->isLeftChild)
+      node->left = (x == root ? nullptr : x);
+    else
+      node->right = (x == root ? nullptr : x);
+
+    // replace node
+    node->key = replacement->key;
+    node->val = replacement->val;
+
+    // apply case 1
+    node->isBlack = false;
+
+    delete replacement;
+    // "node" is now the replacement
+
+    handleRemoveCases(node, x, deletedIsBlack);
   }
   else if(!replacement->isBlack && deletedIsBlack) {
     // CASE: 2
@@ -611,9 +729,32 @@ void RedBlackTree::removeDriver(NodeT *replacement, NodeT *node) {
   }
   else if((replacement->isBlack || replacement == root) && deletedIsBlack) {
     // CASE 3
-    // deleted is black and replacement is black, proceed to the
+    // deleted is black and replacement is black or null, proceed to the
     // appropriate case
-    handleRemoveCases(replacement, sibling, x, deletedIsBlack);
+
+    if(x == root) {
+      if(node->isLeftChild)
+        node->parent->left = nullptr;
+      else
+        node->parent->right = nullptr;
+    } else {
+      // point to x instead of replacement
+      if(node->isLeftChild)
+        node->parent->left = x;
+      else
+        node->parent->right = x;
+
+      x->parent = node->parent;
+    }
+
+    // replace node with replacement
+    node->key = replacement->key;
+    node->val = replacement->val;
+
+    delete replacement;  // ?
+
+
+    handleRemoveCases(node, x, deletedIsBlack);
   }
 
   delete node;
