@@ -1,21 +1,8 @@
-//https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-
-//http://btechsmartclass.com/data_structures/red-black-trees.html
-
-//https://www.youtube.com/watch?v=eO3GzpCCUSg
-//https://github.com/alenachang/red-black-deletion-steps/blob/master/RedBlackDeletionSteps.pdf
-
-#ifndef REDBLACKTREE_H
-#define READBLACKTREE_H
-
+//https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
 #include <iostream>
-#include <vector>
-#include <assert.h>
-
 
 using std::cout;
 using std::endl;
-using std::vector;
 
 
 
@@ -24,132 +11,180 @@ public:
   int key;
   char val;
   bool isBlack;
-  bool isLeftChild;
+  NodeT *left, *right, *parent;
 
-  NodeT *left;
-  NodeT *right;
-  NodeT *parent;
+  /**
+   * The constructor for NodeT class.
+   * Sets the key and value to the parameters.
+   * Sets nullptrs for all links.
+   */
+  explicit NodeT(int key, char val);
 
 
-  explicit NodeT() : left{nullptr}, right{nullptr}, parent{nullptr}
-  { }
+  /**
+   * Returns a reference to the uncle node of this node.
+   * Returns nullptr if there is no uncle.
+   */
+  NodeT *uncle(void) const;
 
-  explicit NodeT(int key, char val) :
-    key{key}, val{val}, left{nullptr}, right{nullptr}, parent{nullptr}
-  { }
+  /**
+   * Check if this node is a left child.
+   */
+  bool isLeftChild(void) const;
 
-  explicit NodeT(int key, char val, NodeT *l, NodeT *r, NodeT *p) :
-    key{key}, val{val}, left{l}, right{r}, parent{p}
-  { }
+  /**
+   * Returns a reference to the sibling of this node.
+   * Returns nullptr if there is no sibling.
+   */
+  NodeT *sibling(void) const;
+
+  /**
+   * Check if this node has a red child.
+   */
+  bool hasRedChild() const;
+
+
+  /**
+   * Moves this node down and moves the given node in it's place.
+   */
+  void moveDown(NodeT *nParent);
+
 };
+
+// public methods
+
+NodeT::NodeT(int key, char val) : key(key), val(val) {
+  parent = left = right = nullptr;
+  // NodeT is red at insertion
+  isBlack = false;
+}
+
+
+NodeT * NodeT::uncle(void) const {
+  // If no parent or grandparent, then no uncle
+  if (parent == nullptr || parent->parent == nullptr)
+    return nullptr;
+
+  if (parent->isLeftChild())
+    // uncle on right
+    return parent->parent->right;
+  else
+    // uncle on left
+    return parent->parent->left;
+}
+
+
+bool NodeT::isLeftChild(void) const {
+  return (this == parent->left);
+}
+
+
+NodeT * NodeT::sibling(void) const {
+  // sibling nullptr if no parent
+  if (parent == nullptr)
+    return nullptr;
+
+  if (isLeftChild())
+    return parent->right;
+
+  return parent->left;
+}
+
+
+bool NodeT::hasRedChild(void) const {
+  return (left != nullptr && !left->isBlack) ||
+  (right != nullptr && !right->isBlack);
+}
+
+
+void NodeT::moveDown(NodeT *nParent) {
+  if (parent != nullptr) {
+    if (isLeftChild()) {
+      parent->left = nParent;
+    } else {
+      parent->right = nParent;
+    }
+  }
+  nParent->parent = parent;
+  parent = nParent;
+}
+
 
 
 class RedBlackTree {
-private:
   NodeT *root;
   int numNodes;
 
+  /**
+   * Left rotates the given NodeT.
+   */
+  void leftRotate(NodeT *x);
 
   /**
-   * Balance the red black tree.
+   * Right rotates the given NodeT.
    */
-  void balance(NodeT *node);
-
+  void rightRotate(NodeT *x);
 
   /**
-   * Left rotate given the sibling.
+   * Swaps the colors of the given nodes.
    */
-  void leftRotate(NodeT *node);
+  void swapColors(NodeT *node1, NodeT *node2);
 
   /**
-   * Right rotate given the sibling.
+   * Swaps the values of the given nodes.
    */
-  void rightRotate(NodeT *node);
-
-
-  /**
-   * Black uncle rotation cases.
-   * Assumes node is not root and node's parent is not root.
-   */
-  void leftLeftRotate  (NodeT *node);
-  void leftRightRotate (NodeT *node);
-  void rightRightRotate(NodeT *node);
-  void rightLeftRotate (NodeT *node);
+  void swapValues(NodeT *node1, NodeT *node2);
 
   /**
-   * Returns true if the uncle is black, returns false otherwise.
-   * Assumes node is not root, and node's parent is not root.
+   * Fix double red at NodeT if it exists.
+   * Fix done by recoloring, or performing rotations.
    */
-  bool uncleIsBlack(NodeT *node) const;
+  void balanceInsert(NodeT *x);
 
   /**
-   * Make the uncle black if makeBlack is true, otherwise make red
+   * Fix double black case when removing and a
+   * black node is replaced by a black child.
+   * Fix done by recoloring, or performing rotations.
    */
-  void makeUncleBlack(NodeT *node, bool makeBlack);
+  void fixDoubleBlack(NodeT *x);
 
   /**
-   * Standard BST insertion.
-   * Returns true if the node is inserted and false otherwise.
+   * Searches for a given key.
+   * If found, returns a reference (used in deletion).
+   * If not found, return the last node while traversing (used in insertion).
    */
-  bool normalInsert(NodeT *curr, NodeT *node);
+  NodeT *searchUtility(int n) const;
 
   /**
-   * Return true if key is found, return false otherwise.
+   * Return a reference to the node that is the next largest
+   * compared to the given node.
    */
-  bool helpSearch(NodeT *curr, int key) const;
+  NodeT *successor(NodeT *x);
 
   /**
-   * Get node with a given key.
-   * Return root if not found.
+   * Returns a reference to the the node that will replace the deleted node.
    */
-  NodeT* get(int key) const;
-  NodeT* helpGet(NodeT *curr, int key) const;
+  NodeT *replacement(NodeT *x);
 
   /**
-   * Get a reference to the sibling of a given node.
-   * Return root if not found
+   * The driver for removing a node.
    */
-  NodeT* getSibling(NodeT *node) const;
-
-  /**
-   * Get the successor of a given node.
-   * Returns root if successor is nullptr.
-   */
-  NodeT* successorHelp(NodeT *curr) const;
-  NodeT* successor(NodeT *curr) const;
-
-  /**
-   * Get the predecessor of a given node.
-   * Returns root if predecessor is nullptr.
-   */
-  NodeT* predecessorHelp(NodeT *curr) const;
-  NodeT* predecessor(NodeT *curr) const;
+  void deleteNodeT(NodeT *v);
 
 
   /**
-   * Handle the cases for removing nodes where the node deleted is red and it's
-   * replacement is black.
-   * Handle the cases for removing nodes where the node deleted is black and it's
-   * replacement is black.
+   * Prints the tree in order
    */
-  void handleRemoveCases(NodeT *replacement, NodeT *x, bool deletedIsBlack);
-
-
-  /**
-   * Determines what case should be invoked based on the replacement node and
-   * the color of the deleted node.
-   */
-  void removeDriver(NodeT *replacement, NodeT* node);
-
-
+  void inorder(NodeT *x) const;
 
 public:
-  explicit RedBlackTree();
-  explicit RedBlackTree(const RedBlackTree & x);
 
-  // ~RedBlackTree();
+  /**
+   * Constructor, initialize numNodes and root
+   */
+  explicit RedBlackTree(void);
 
-  RedBlackTree & operator= (const RedBlackTree & x);
+  NodeT *getRoot(void) const;
 
   /**
    * If the tree does not contain key, inserts the key and value and
@@ -157,7 +192,7 @@ public:
    * The tree will never contain duplicate keys.
    * key and value are template parameters and may be different types.
    */
-  bool insert(int key, char val);
+  bool insert(int n, char c);
 
   /**
    * Removes the key and associated value from the tree and returns true.
@@ -166,646 +201,311 @@ public:
   bool remove(int key);
 
   /**
-   * Searches for the key and returns true if found.
-   * Otherwise returns false.
+   * Prints an inorder traversal of the tree.
    */
-  bool search(int key) const;
-
-  /**
-   * Returns a vector that contains all the values whose keys are between
-   * or equal to the first and second parameter keys.
-   * The returned vector is in ascending order of the keys.
-   */
-  vector<char> search(int leftKey, int rightKey) const;
-
-  /**
-   * Return a vector of all the values in ascending key order.
-   */
-  vector<char> values(void) const;
-
-  /**
-   * Returns a vector of all the keys in ascending order.
-   */
-  vector<int> keys(void) const;
-
-  /**
-   * Returns the number of items stored in the tree.
-   */
-  int const & size(void) const;
-
-  NodeT * getRoot(void) const;
-
+  void printInOrder(void) const;
 };
 
+// private methods
 
-RedBlackTree::RedBlackTree() : root{nullptr}, numNodes{0}
-{ }
+void RedBlackTree::leftRotate(NodeT *x) {
+  // new parent will be NodeT's right child
+  NodeT *nParent = x->right;
 
+  // update root if current NodeT is root
+  if (x == root)
+    root = nParent;
 
-RedBlackTree::RedBlackTree(const RedBlackTree & x) {
-  //deepCopy(x);
+  x->moveDown(nParent);
+
+  // connect x with new parent's left element
+  x->right = nParent->left;
+  // connect new parent's left element with NodeT
+  // if it is not nullptr
+  if (nParent->left != nullptr)
+    nParent->left->parent = x;
+
+  // connect new parent with x
+  nParent->left = x;
 }
 
 
-bool RedBlackTree::uncleIsBlack(NodeT *node) const {
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
+void RedBlackTree::rightRotate(NodeT *x) {
+  // new parent will be NodeT's left child
+  NodeT *nParent = x->left;
 
-  NodeT *uncle = parent->isLeftChild ? grandparent->right : grandparent->left;
+  // update root if current NodeT is root
+  if (x == root)
+    root = nParent;
 
-  return (uncle == nullptr || uncle->isBlack);
+  x->moveDown(nParent);
+
+  // connect x with new parent's right element
+  x->left = nParent->right;
+  // connect new parent's right element with NodeT
+  // if it is not nullptr
+  if (nParent->right != nullptr)
+    nParent->right->parent = x;
+
+  // connect new parent with x
+  nParent->right = x;
 }
 
 
-void RedBlackTree::makeUncleBlack(NodeT *node, bool makeBlack) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
-
-  NodeT *uncle = parent->isLeftChild ? grandparent->right : grandparent->left;
-
-  uncle->isBlack = makeBlack;
-
-  return;
+void RedBlackTree::swapColors(NodeT *x1, NodeT *x2) {
+  bool _tmp;
+  _tmp = x1->isBlack;
+  x1->isBlack = x2->isBlack;
+  x2->isBlack = _tmp;
 }
 
 
-bool RedBlackTree::normalInsert(NodeT *curr, NodeT *node) {
-  if(root == nullptr) {
+void RedBlackTree::swapValues(NodeT *u, NodeT *v) {
+  int _tmp;
+  _tmp = u->key;
+  u->key = v->key;
+  v->key = _tmp;
+}
+
+
+void RedBlackTree::balanceInsert(NodeT *node) {
+  // node x is root, color it black and done
+  if (node == root) {
     node->isBlack = true;
-    root = node;
-    numNodes++;
-    return true;
-  } else {
-    if(curr->key == node->key) {
-      // duplicate
-      return false;
-    }
-    if(curr->key < node->key) {
-      if(curr->right == nullptr) {
-        node->parent = curr;
-        node->isBlack = false;
-        node->isLeftChild = false;
-        curr->right = node;
-        numNodes++;
-        return true;
-      }
-      return normalInsert(curr->right, node);
-    }
-    if(curr->key > node->key) {
-      if(curr->left == nullptr) {
-        node->parent = curr;
-        node->isBlack = false;
-        node->isLeftChild = true;
-        curr->left= node;
-        numNodes++;
-        return true;
-      }
-      return normalInsert(curr->left, node);
-    }
-  }
-  return false;
-}
-
-
-void RedBlackTree::leftRotate(NodeT *node) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent;
-  bool grandExists = false;
-
-  if(parent->parent != nullptr) {
-    grandparent = parent->parent;
-    grandExists = true;
+    return;
   }
 
-  if(grandExists) {
-    if(!parent->isLeftChild)
-      grandparent->right = node;
-    else
-      grandparent->left = node;
-  }
-  parent->right = node->left;
-  node->left = parent;
-  parent->parent = node;
-
-  if(grandExists)
-    node->parent = grandparent;
-  else
-    node->parent = nullptr;
-}
-
-
-void RedBlackTree::rightRotate(NodeT *node) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent;
-  bool grandExists = false;
-
-  if(parent->parent != nullptr) {
-    grandparent = parent->parent;
-    grandExists = true;
-  }
-
-  if(grandExists) {
-    if(!parent->isLeftChild)
-      grandparent->right = node;
-    else
-      grandparent->left = node;
-  }
-  parent->left = node->right;
-  node->right = parent;
-  parent->parent = node;
-
-  if(grandExists)
-    node->parent = grandparent;
-  else
-    node->parent = nullptr;
-}
-
-
-void RedBlackTree::leftLeftRotate(NodeT *node) {
   NodeT *parent = node->parent;
   NodeT *grandparent = parent->parent;
+  NodeT *uncle = node->uncle();
 
-  // attach this subtree to what points to grandparent
-  if(grandparent->parent != nullptr) {
-    if(grandparent->isLeftChild)
-    grandparent->parent->left = parent;
-    else
-    grandparent->parent->right = parent;
-  }
+  if (!parent->isBlack) {
+    // parent is red
+    if (uncle != nullptr && !uncle->isBlack) {
+      // uncle red, recolor and try again
+      parent->isBlack = true;
+      uncle->isBlack = true;
+      grandparent->isBlack = false;
 
-  // switch pointers for the left-left rotate case
-  grandparent->left = parent->right;
-  parent->right = grandparent;
-  parent->parent = grandparent->parent;
-  grandparent->parent = parent;
-
-  // recoloring
-  grandparent->isLeftChild = false;
-
-  grandparent->isBlack = false;
-  node->isBlack = false;
-  parent->isBlack = true;
-
-  // check and update if root
-  if(parent->parent == nullptr)
-    root = parent;
-}
-
-
-void RedBlackTree::leftRightRotate(NodeT *node) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
-
-  grandparent->left = node;
-  node->parent = grandparent;
-  parent->right = node->left;
-  node->left = parent;
-  parent->parent = node;
-
-  node = parent;  // which is now the left child
-
-  leftLeftRotate(node);
-}
-
-
-void RedBlackTree::rightRightRotate(NodeT *node) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
-
-  // attach this subtree to what points to grandparent
-  if(grandparent->parent != nullptr) {
-    if(grandparent->isLeftChild)
-      grandparent->parent->left = parent;
-    else
-      grandparent->parent->right = parent;
-  }
-
-  // switch pointers for the right-right rotate case
-  grandparent->right = parent->left;
-  parent->left = grandparent;
-  parent->parent = grandparent->parent;
-  grandparent->parent = parent;
-
-  // recoloring
-  grandparent->isLeftChild = true;
-
-  grandparent->isBlack = false;
-  parent->isBlack = true;
-  node->isBlack = false;
-
-  // check if root
-  if(parent->parent == nullptr)
-    root = parent;
-}
-
-
-void RedBlackTree::rightLeftRotate(NodeT *node) {
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
-
-  grandparent->right = node;
-  node->parent = grandparent;
-  parent->left = node->right;
-  node->right = parent;
-  parent->parent = node;
-
-  node = parent;  // which is now the right child
-
-  rightRightRotate(node);
-}
-
-
-void RedBlackTree::balance(NodeT *node) {
-  if(node->parent != nullptr && !node->parent->isBlack) {
-    // parent isn't black->(and not root)
-    if(!uncleIsBlack(node)) {
-      // uncle is red, grandparent is red by property 4
-      node->parent->isBlack = true;
-      makeUncleBlack(node, true);
-
-      node = node->parent->parent;
-      node->isBlack = false;
-      balance(node);
+      balanceInsert(grandparent);
     } else {
-      // uncle is black: 4 possible configurations
-      if(node->isLeftChild && node->parent->isLeftChild) {
-        // left left case
-        leftLeftRotate(node);
-      }
-      else if(!node->isLeftChild && node->parent->isLeftChild) {
-        // left right case
-        leftRightRotate(node);
-      }
-      else if(!node->isLeftChild && !node->parent->isLeftChild) {
-        // right right case
-        rightRightRotate(node);
-      }
-      else if(node->isLeftChild && !node->parent->isLeftChild) {
-        // right left case
-        rightLeftRotate(node);
+      // Uncle is black, do a rotation
+      if (parent->isLeftChild()) {
+        if (node->isLeftChild()) {
+          // left-left case
+          swapColors(parent, grandparent);
+        } else {
+          // left-right case
+          leftRotate(parent);
+          swapColors(node, grandparent);
+        }
+        // for left-left and left-right
+        rightRotate(grandparent);
+      } else {
+        // parent is right child
+        if (node->isLeftChild()) {
+          // right-left case
+          rightRotate(parent);
+          swapColors(node, grandparent);
+        } else {
+          // right-right case
+          swapColors(parent, grandparent);
+        }
+
+        // for right-left and right-right
+        leftRotate(grandparent);
       }
     }
   }
-  root->isBlack = true;
+  return;
 }
 
 
-bool RedBlackTree::insert(int key, char val) {
-  // standard BST insertion
-  NodeT *newNode = new NodeT(key, val);
-  bool inserted = normalInsert(root, newNode);
-  if(inserted) {
-    if(!newNode->isBlack) {
-      // inserted and isn't root
-      balance(newNode);
-    }
-  }
-  return inserted;
-}
+void RedBlackTree::fixDoubleBlack(NodeT *x) {
+  if (x == root)
+  // Reached root
+  return;
 
-
-
-NodeT* RedBlackTree::helpGet(NodeT *curr, int key) const {
-  if(curr == nullptr)
-    return root;
-  if(key == curr->key)
-    return curr;
-
-  if(key < curr->key)
-    return helpGet(curr->left, key);
-  if(key > curr->key)
-    return helpGet(curr->right, key);
-
-  return root;
-}
-
-NodeT* RedBlackTree::get(int key) const {
-  return helpGet(root, key);
-}
-
-
-NodeT* RedBlackTree::getSibling(NodeT *node) const {
-  if(node->isLeftChild) {
-    if(node->parent->right != nullptr)
-      return node->parent->right;
+  NodeT *sibling = x->sibling(), *parent = x->parent;
+  if (sibling == nullptr) {
+    // No sibiling, double black pushed up
+    fixDoubleBlack(parent);
   } else {
-    if(node->parent->left != nullptr)
-      return node->parent->left;
-  }
-  // nullptr sibling
-  return root;
-}
-
-
-bool RedBlackTree::helpSearch(NodeT *curr, int key) const {
-  if(curr == nullptr)
-    return false;
-  if(key == curr->key)
-    return true;
-
-  if(key < curr->key)
-    return helpSearch(curr->left, key);
-  if(key > curr->key)
-    return helpSearch(curr->right, key);
-
-  return false;
-}
-
-bool RedBlackTree::search(int key) const {
-  return helpSearch(root, key);
-}
-
-
-NodeT* RedBlackTree::successorHelp(NodeT *curr) const {
-  if(curr == nullptr)
-    return root;
-  if(curr->left == nullptr)
-    return curr;
-  return successorHelp(curr->left);
-}
-
-NodeT* RedBlackTree::successor(NodeT *curr) const {
-  return(successorHelp(curr->right));
-}
-
-
-NodeT* RedBlackTree::predecessorHelp(NodeT *curr) const {
-  if(curr == nullptr)
-    return root;
-  if(curr->right == nullptr)
-    return curr;
-  return predecessorHelp(curr->right);
-}
-
-NodeT* RedBlackTree::predecessor(NodeT *curr) const {
-  return(predecessorHelp(curr->left));
-}
-
-
-void RedBlackTree::handleRemoveCases(NodeT *replacement, NodeT *x, bool deletedIsBlack) {
-  // NOTE: we have used root as a sentinal for nullptr
-  bool nephewsBlack = false;
-  NodeT *sibling = getSibling(x);
-  if(sibling != root) {
-    nephewsBlack = ((sibling->left == nullptr || sibling->left->isBlack) &&
-    (sibling->right == nullptr || sibling->right->isBlack));
-  }
-
-  if(x != root && !x->isBlack) {
-    // Case 0: node x is red
-    x->isBlack = true;  // doesn't matter if we color root black again
-  }
-  else if(x != root && x->isBlack && !sibling->isBlack) {
-    // Case 1: node x is black and it's sibling is red
-    sibling->isBlack = true;
-    x->isBlack = false;
-    x->parent->isBlack = false;
-
-    // rotate x and parent
-    if(x->isLeftChild)
-      leftLeftRotate(x);
-    else
-      rightRightRotate(x);
-
-    // HAVENT THOUGHT ABIYUT THIS
-    // if(x->isLeftChild) {
-    //   x->parent->right = sibling;
-    // } else {
-    //   x->parent->left = sibling;
-    // }
-
-
-  }
-  else if((x == root || x->isBlack) && sibling->isBlack && nephewsBlack) {
-    // Case 2: node x is black, it's sibling is black, and both of the sibling's
-    // children are black
-    sibling->isBlack = false;
-    x = sibling->parent;
-
-    if(!x->isBlack)
-      x->isBlack = false;
-    else {
-      // go again with new x and new sibling
-      sibling = getSibling(x);
-      // RECURSE
-
-
-    }
-  }
-  else if(x != root && x->isBlack && sibling->isBlack) {
-    // Case 3: node x is black, and it's sibling is black and...
-    if(sibling != root) {
-      if(x->isLeftChild && sibling->left != nullptr && !sibling->left->isBlack &&
-        (sibling->right == nullptr || sibling->right->isBlack)) {
-        // Case 3.1: x is the left child, sibling's left child is red and
-        // sibling's right child is black
-
+    if (!sibling->isBlack) {
+      // Sibling red
+      parent->isBlack = false;
+      sibling->isBlack = true;
+      if (sibling->isLeftChild()) {
+        // left case
+        rightRotate(parent);
+      } else {
+        // right case
+        leftRotate(parent);
       }
-      else if(!x->isLeftChild && (sibling->left == nullptr || sibling->left->isBlack) &&
-        sibling->right != nullptr && !sibling->right->isBlack) {
-        // Case 3.2: x is the right child, sibling's left child is black and
-        // sibling's right child is red
-
-      }
-
-    }
-  }
-  else if(x->isBlack && sibling != nullptr && sibling->isBlack) {
-    // Case 4: node x is black and it's sibling is black and...
-    if(!sibling->isLeftChild && sibling->right != nullptr && !sibling->right->isBlack) {
-      // x is the left child, sibling's right child is red
-      sibling->isBlack = sibling->parent->isBlack;
-
-      sibling->parent->isBlack = true;
-
-      sibling->right->isBlack = true;
-
-      leftRotate(sibling);
-    }
-    if(sibling->isLeftChild && sibling->left != nullptr && !sibling->left->isBlack) {
-      // x is the right child, sibling's left child is red
-      sibling->isBlack = sibling->parent->isBlack;
-
-      sibling->parent->isBlack = true;
-
-      sibling->left->isBlack = true;
-
-      rightRotate(sibling);
-    }
-  }
-
-
-}
-
-
-void RedBlackTree::removeDriver(NodeT *replacement, NodeT *node) {
-
-
-  NodeT *x = root;
-  if(replacement != root)  // remember we use root as a sentinal
-    x = replacement->right == nullptr ? root : replacement->right;
-
-  NodeT *sibling = root;
-  if(x != root)
-    sibling = getSibling(x);
-
-  bool deletedIsBlack = node->isBlack;
-
-  if((replacement == root || !replacement->isBlack) && !deletedIsBlack) {
-    // CASE: 0
-    // deleted is red and replacement is red or nullptr
-    if(replacement == root) {
-      // nullptr
-      if(node->isLeftChild)
-        node->parent->left = nullptr;
-      else
-        node->parent->right = nullptr;
-    }
-    else {
-      // replacement is red
-      // attach replacement to parent
-      if(node->isLeftChild)
-        node->parent->left = replacement;
-      else
-        node->parent->right = replacement;
-
-      // attach the x subtree to replacement's old parent
-      if(replacement->isLeftChild)
-        replacement->parent->left = (x == root ? nullptr : x);
-      else
-        replacement->parent->right = (x == root ? nullptr : x);
-
-      // replacement takes the spot of node
-      replacement->parent = node->parent;
-      replacement->left = node->left;
-      replacement->right = node->right;
-    }
-  }
-  else if(replacement->isBlack && !deletedIsBlack) {
-    // CASE: 1
-    // deleted is red and replacement is black, color "replacement" red
-    // and proceed to the appropriate case
-
-    // attach x to replacement location
-    if(replacement->isLeftChild)
-      node->left = (x == root ? nullptr : x);
-    else
-      node->right = (x == root ? nullptr : x);
-
-    // replace node
-    node->key = replacement->key;
-    node->val = replacement->val;
-
-    // apply case 1
-    node->isBlack = false;
-
-    delete replacement;
-    // "node" is now the replacement
-
-    handleRemoveCases(node, x, deletedIsBlack);
-  }
-  else if(!replacement->isBlack && deletedIsBlack) {
-    // CASE: 2
-    // deleted is black and replacement is red --> color the replacement black
-
-    // attach the replacement
-    replacement->parent = node->parent;
-    if(replacement->isLeftChild)
-      replacement->left = node->left;
-    else
-      replacement->right = node->right;
-
-    // apply CASE: 2
-    replacement->isBlack = true;
-    replacement->isLeftChild = node->isLeftChild;
-
-    // finish attaching the replacment
-    if(replacement->parent != nullptr) {
-      if(replacement->isLeftChild)
-        replacement->parent->left = replacement;
-      else
-        replacement->parent->right = replacement;
-    }
-  }
-  else if((replacement->isBlack || replacement == root) && deletedIsBlack) {
-    // CASE 3
-    // deleted is black and replacement is black or null, proceed to the
-    // appropriate case
-
-    if(x == root) {
-      if(node->isLeftChild)
-        node->parent->left = nullptr;
-      else
-        node->parent->right = nullptr;
+      fixDoubleBlack(x);
     } else {
-      // point to x instead of replacement
-      if(node->isLeftChild)
-        node->parent->left = x;
-      else
-        node->parent->right = x;
-
-      x->parent = node->parent;
+      // Sibling black
+      if (sibling->hasRedChild()) {
+        // at least 1 red children
+        if (sibling->left != nullptr && !sibling->left->isBlack) {
+          if (sibling->isLeftChild()) {
+            // left left
+            sibling->left->isBlack = sibling->isBlack;
+            sibling->isBlack = parent->isBlack;
+            rightRotate(parent);
+          } else {
+            // right left
+            sibling->left->isBlack = parent->isBlack;
+            rightRotate(sibling);
+            leftRotate(parent);
+          }
+        } else {
+          if (sibling->isLeftChild()) {
+            // left right
+            sibling->right->isBlack = parent->isBlack;
+            leftRotate(sibling);
+            rightRotate(parent);
+          } else {
+            // right right
+            sibling->right->isBlack = sibling->isBlack;
+            sibling->isBlack = parent->isBlack;
+            leftRotate(parent);
+          }
+        }
+        parent->isBlack = true;
+      } else {
+        // 2 black children
+        sibling->isBlack = false;
+        if (parent->isBlack)
+          fixDoubleBlack(parent);
+        else
+          parent->isBlack = true;
+      }
     }
-
-    // replace node with replacement
-    node->key = replacement->key;
-    node->val = replacement->val;
-
-    delete replacement;  // ?
+  }
+}
 
 
-    handleRemoveCases(node, x, deletedIsBlack);
+NodeT * RedBlackTree::searchUtility(int n) const {
+  NodeT *_tmp = root;
+  while (_tmp != nullptr) {
+    if (n < _tmp->key) {
+      if (_tmp->left == nullptr)
+        break;
+      else
+        _tmp = _tmp->left;
+    } else if (n == _tmp->key) {
+      break;
+    } else {
+      if (_tmp->right == nullptr)
+        break;
+      else
+        _tmp = _tmp->right;
+    }
   }
 
-  delete node;
-  numNodes--;
+  return _tmp;
+}
+
+
+NodeT * RedBlackTree::successor(NodeT *x) {
+  NodeT *_tmp = x;
+
+  while (_tmp->left != nullptr)
+    _tmp = _tmp->left;
+
+  return _tmp;
+}
+
+
+NodeT * RedBlackTree::replacement(NodeT *node) {
+  // node has two children
+  if (node->left != nullptr && node->right != nullptr)
+    return successor(node->right);
+
+  // node is a leaf
+  if (node->left == nullptr and node->right == nullptr)
+    return nullptr;
+
+  // node has one child
+  return (node->left != nullptr ? node->left : node->right);
+}
+
+
+void RedBlackTree::deleteNodeT(NodeT *node) {
+  NodeT *replace = replacement(node);
+  NodeT *parent = node->parent;
+
+  // replacement is black and node is black
+  bool bothBlack = ((replace == nullptr || replace->isBlack) && (node->isBlack));
+
+  if (replace == nullptr) {
+    // replace is nullptr so node must be a leaf
+    if (node == root) {
+      // node is root, delete the tree
+      root = nullptr;
+    } else {
+      if (bothBlack) {
+        // node is leaf, fix double black at node
+        fixDoubleBlack(node);
+      } else {
+        // replace or node is red
+        if (node->sibling() != nullptr)
+          // make sibling red
+          node->sibling()->isBlack = false;
+      }
+
+      // delete node from the tree
+      node->isLeftChild() ? parent->left = nullptr : parent->right = nullptr;
+    }
+    delete node;
+  }
+  else if (node->left == nullptr || node->right == nullptr) {
+    // node has 1 child
+    if (node == root) {
+      // node is root so replace becomes root
+      node->key = replace->key;
+      node->left = node->right = nullptr;
+
+      delete replace;
+    } else {
+      // move replace into node's position
+      node->isLeftChild() ? parent->left = replace : parent->right = replace;
+      delete node;
+
+      replace->parent = parent;
+      if (bothBlack) {
+        // replace and node both black, fix double black at replace
+        fixDoubleBlack(replace);
+      } else {
+        // replace or node red, color replace black
+        replace->isBlack = true;
+      }
+    }
+  } else {
+    // node has 2 children, swap values with successor and recurse
+    swapValues(replace, node);
+    deleteNodeT(replace);
+  }
 
   return;
 }
 
 
-
-bool RedBlackTree::remove(int key) {
-  bool exists = search(key);
-
-  if(exists) {
-    // the key is in the tree
-    NodeT *node = get(key);
-    NodeT *parent;
-    NodeT *replacement;
-
-    if(node->left == nullptr && node->right == nullptr) {
-      // 2 null children case
-      parent = node->parent;
-
-      if(parent != nullptr) {
-        // not dealing with root
-        node->isLeftChild ? parent->left = nullptr : parent->right = nullptr;
-      }
-
-      delete node;
-      return true;
-    }
-
-    bool twoChild = (node->left != nullptr && node->right != nullptr);
-    bool oneChild = ((node->left != nullptr || node->right != nullptr) && !twoChild);
-
-    if(oneChild || twoChild) {
-      if(oneChild) {
-        // one child, replace with predecessor or successor
-        replacement = node->left == nullptr ? successor(node) : predecessor(node);
-      } else {
-        // two children, replace with successor
-        replacement = successor(node);
-      }
-      removeDriver(replacement, node);
-      return true;
-    }
-  }
-  return false;
+void RedBlackTree::inorder(NodeT *x) const {
+  if (x == nullptr)
+    return;
+  inorder(x->left);
+  cout << "(" << x->key << ", " << x->val << ")"<< " ";
+  inorder(x->right);
 }
 
 
+// public methods
+
+RedBlackTree::RedBlackTree(void) : numNodes{0} {
+  root = nullptr;
+}
 
 
 NodeT * RedBlackTree::getRoot(void) const {
@@ -813,6 +513,65 @@ NodeT * RedBlackTree::getRoot(void) const {
 }
 
 
+bool RedBlackTree::insert(int key, char val) {
+  NodeT *newNodeT = new NodeT(key, val);
+  if (root == nullptr) {
+    // nothing inserted, make a new root
+    newNodeT->isBlack = true;
+    root = newNodeT;
+
+    ++numNodes;
+  } else {
+    NodeT *_tmp = searchUtility(key);
+
+    if (_tmp->key == key) {
+      // duplicate
+      return false;
+    }
+    // node not in tree so searchUtility returns where
+    // the node should be inserted
+
+    newNodeT->parent = _tmp;
+
+    if (key < _tmp->key)
+      _tmp->left = newNodeT;
+    else
+      _tmp->right = newNodeT;
+
+    // fix double red voilaton if exists
+    balanceInsert(newNodeT);
+
+    ++numNodes;
+    return true;
+  }
+  return false;
+}
 
 
-#endif
+bool RedBlackTree::remove(int key) {
+  if (root == nullptr)
+  // Tree is empty
+  return false;
+
+  NodeT *target = searchUtility(key);
+
+  if (target->key != key) {
+    // did not find a node to delete
+    return false;
+  }
+
+  deleteNodeT(target);
+
+  --numNodes;
+  return true;
+}
+
+
+void RedBlackTree::printInOrder(void) const {
+  cout << "Inorder: " << endl;
+  if (root == nullptr)
+    cout << "Tree is empty" << endl;
+  else
+    inorder(root);
+  cout << endl;
+}

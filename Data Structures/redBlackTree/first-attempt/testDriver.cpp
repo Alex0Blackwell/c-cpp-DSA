@@ -4,37 +4,11 @@
 #include "RedBlackTree.hpp"
 
 
-using namespace std;
+using std::cout;
+using std::endl;
 
 
 int main(void) {
-  RedBlackTree tree;
-
-  tree.insert(7, 'a');
-  tree.insert(3, 'a');
-  tree.insert(18, 'a');
-  tree.insert(10, 'a');
-  tree.insert(22, 'a');
-  tree.insert(8, 'a');
-  tree.insert(11, 'a');
-  tree.insert(26, 'a');
-  tree.insert(2, 'a');
-  tree.insert(6, 'a');
-  tree.insert(13, 'a');
-
-  tree.printInOrder();
-
-  cout<<endl<<"Deleting 18, 11, 3, 10, 22"<<endl;
-
-  tree.remove(18);
-  tree.remove(11);
-  tree.remove(3);
-  tree.remove(10);
-  tree.remove(22);
-
-  tree.printInOrder();
-
-
   RedBlackTree tree1;
 
   cout << "Testing insert" << endl;
@@ -133,7 +107,13 @@ int main(void) {
   validInsert = tree2.insert(80, 'h');
   assert(!validInsert);
 
-  cout << "Insert test passed!" << endl;
+  cout << "Insert test passed!" << endl
+  << "Testing search." << endl;
+
+  assert(tree2.search(80));
+  assert(!tree2.search(24));
+
+  cout << "Search test passed!" << endl;
 
 
   tree2.remove(40);
@@ -142,6 +122,7 @@ int main(void) {
 
 
   cout << "Reached end of program with exit code 0!" << endl;
+
 
   return 0;
 }
