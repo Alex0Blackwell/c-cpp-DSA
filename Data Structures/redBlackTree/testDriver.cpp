@@ -156,11 +156,24 @@ int main(void) {
 
   arr1 = tree2.search(85, 90);
 
-
   cout << "85 - 90" << endl;
   for(auto el : arr1)
     cout << el << ", ";
   cout << endl << endl;
+
+  arr1 = tree2.values();
+  cout << "All values in the tree in order:" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
+
+  vector<int> arr2 = tree2.keys();
+  cout << "All keys in the tree in order:" << endl;
+  for(auto el : arr2)
+    cout << el << ", ";
+  cout << endl << endl;
+
+
 
 
 

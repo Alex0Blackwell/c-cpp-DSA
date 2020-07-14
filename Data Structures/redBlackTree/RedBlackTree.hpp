@@ -170,6 +170,18 @@ class RedBlackTree {
   bool helpSearch(NodeT *curr, int key) const;
 
   /**
+   * Help values()
+   * Driver to add all values into a vector in ascending order.
+   */
+  void helpValues(NodeT *curr, vector<char> &arr) const;
+
+  /**
+   * Help keys()
+   * Driver to add all keys into a vector in ascending order.
+   */
+  void helpKeys(NodeT *curr, vector<int> &arr) const;
+
+  /**
    * Help search().
    * Populate the array for values between left key and right key.
    */
@@ -232,6 +244,16 @@ public:
    * The returned vector is in ascending order of the keys.
    */
   vector<char> search(int leftKey, int rightKey);
+
+  /**
+   * Return a vector of all the values in ascending key order.
+   */
+  vector<char> values(void);
+
+  /**
+   * Returns a vector of all the keys in ascending order.
+   */
+  vector<int> keys(void);
 
 
   /**
@@ -553,7 +575,24 @@ void RedBlackTree::populateBetween(NodeT *curr, int leftKey, int rightKey, vecto
 }
 
 
+void RedBlackTree::helpValues(NodeT *curr, vector<char> &arr) const {
+  if(curr == nullptr)
+    return;
 
+  helpValues(curr->left, arr);
+  arr.push_back(curr->val);
+  helpValues(curr->right, arr);
+}
+
+
+void RedBlackTree::helpKeys(NodeT *curr, vector<int> &arr) const {
+  if(curr == nullptr)
+    return;
+
+  helpKeys(curr->left, arr);
+  arr.push_back(curr->key);
+  helpKeys(curr->right, arr);
+}
 
 
 void RedBlackTree::inorder(NodeT *x) const {
@@ -644,8 +683,20 @@ vector<char> RedBlackTree::search(int leftKey, int rightKey) {
 }
 
 
+vector<char> RedBlackTree::values(void) {
+  vector<char> arr;
+  helpValues(root, arr);
+
+  return arr;  // vector has move semantics
+}
 
 
+vector<int> RedBlackTree::keys(void) {
+  vector<int> arr;
+  helpKeys(root, arr);
+
+  return arr;  // vector has move semantics
+}
 
 void RedBlackTree::printInOrder(void) const {
   cout << "Inorder: " << endl;
