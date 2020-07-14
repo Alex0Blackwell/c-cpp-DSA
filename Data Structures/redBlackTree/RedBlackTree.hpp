@@ -1,5 +1,3 @@
-//https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
-
 #ifndef REDBLACKTREE_H
 #define REDBLACKTREE_H
 
@@ -13,11 +11,11 @@ using std::endl;
 using std::vector;
 
 
-
+template <typename K, typename V>
 class NodeT {
 public:
-  int key;
-  char val;
+  K key;
+  V val;
   bool isBlack;
   NodeT *left, *right, *parent;
 
@@ -26,13 +24,13 @@ public:
    * Sets the key and value to the parameters.
    * Sets nullptrs for all links.
    */
-  explicit NodeT(int key, char val);
+  explicit NodeT(K key, V val);
 
   /**
    * Returns a reference to the uncle node of this node.
    * Returns nullptr if there is no uncle.
    */
-  NodeT *uncle(void) const;
+  NodeT<K, V> *uncle(void) const;
   /**
    * Check if this node is a left child.
    */
@@ -41,7 +39,7 @@ public:
    * Returns a reference to the sibling of this node.
    * Returns nullptr if there is no sibling.
    */
-  NodeT *sibling(void) const;
+  NodeT<K, V> *sibling(void) const;
   /**
    * Check if this node has a red child.
    */
@@ -53,16 +51,18 @@ public:
 
 };
 
-// public methods
+// public NodeT methods
 
-NodeT::NodeT(int key, char val) : key(key), val(val) {
+template <typename K, typename V>
+NodeT<K, V>::NodeT(K key, V val) : key(key), val(val) {
   parent = left = right = nullptr;
   // NodeT is red at insertion
   isBlack = false;
 }
 
 
-NodeT * NodeT::uncle(void) const {
+template <typename K, typename V>
+NodeT<K, V>* NodeT<K, V>::uncle(void) const {
   // If no parent or grandparent, then no uncle
   if (parent == nullptr || parent->parent == nullptr)
     return nullptr;
@@ -76,12 +76,14 @@ NodeT * NodeT::uncle(void) const {
 }
 
 
-bool NodeT::isLeftChild(void) const {
+template <typename K, typename V>
+bool NodeT<K, V>::isLeftChild(void) const {
   return (this == parent->left);
 }
 
 
-NodeT * NodeT::sibling(void) const {
+template <typename K, typename V>
+NodeT<K, V> * NodeT<K, V>::sibling(void) const {
   // sibling nullptr if no parent
   if (parent == nullptr)
     return nullptr;
@@ -93,13 +95,15 @@ NodeT * NodeT::sibling(void) const {
 }
 
 
-bool NodeT::hasRedChild(void) const {
+template <typename K, typename V>
+bool NodeT<K, V>::hasRedChild(void) const {
   return (left != nullptr && !left->isBlack) ||
   (right != nullptr && !right->isBlack);
 }
 
 
-void NodeT::moveDown(NodeT *nParent) {
+template <typename K, typename V>
+void NodeT<K, V>::moveDown(NodeT *nParent) {
   if (parent != nullptr) {
     if (isLeftChild()) {
       parent->left = nParent;
@@ -113,8 +117,9 @@ void NodeT::moveDown(NodeT *nParent) {
 
 
 
+template <typename K, typename V>
 class RedBlackTree {
-  NodeT *root;
+  NodeT<K, V> *root;
   int numNodes;
 
 private:
@@ -122,7 +127,7 @@ private:
   /**
    * Help deleteTree() to deallocate the tree.
    */
-  void helpDeleteTree(NodeT *curr);
+  void helpDeleteTree(NodeT<K, V> *curr);
   /**
    * Deallocate the tree.
    */
@@ -134,74 +139,74 @@ private:
   /**
    * Left rotates the given NodeT.
    */
-  void leftRotate(NodeT *x);
+  void leftRotate(NodeT<K, V> *x);
   /**
    * Right rotates the given NodeT.
    */
-  void rightRotate(NodeT *x);
+  void rightRotate(NodeT<K, V> *x);
   /**
    * Swaps the colors of the given nodes.
    */
-  void swapColors(NodeT *node1, NodeT *node2);
+  void swapColors(NodeT<K, V> *node1, NodeT<K, V> *node2);
   /**
    * Swaps the values of the given nodes.
    */
-  void swapValues(NodeT *node1, NodeT *node2);
+  void swapValues(NodeT<K, V> *node1, NodeT<K, V> *node2);
   /**
    * Fix double red at NodeT if it exists.
    * Fix done by recoloring, or performing rotations.
    */
-  void balanceInsert(NodeT *x);
+  void balanceInsert(NodeT<K, V> *x);
   /**
    * Fix double black case when removing and a
    * black node is replaced by a black child.
    * Fix done by recoloring, or performing rotations.
    */
-  void fixDoubleBlack(NodeT *x);
+  void fixDoubleBlack(NodeT<K, V> *x);
   /**
    * Searches for a given key.
    * If found, returns a reference (used in deletion).
    * If not found, return the last node while traversing (used in insertion).
    */
-  NodeT *searchUtility(int n) const;
+  NodeT<K, V> *searchUtility(K key) const;
   /**
    * Help search();
    * Return true if key exists in the tree.
    * Return false otherwise.
    */
-  bool helpSearch(NodeT *curr, int key) const;
+  bool helpSearch(NodeT<K, V> *curr, K key) const;
   /**
    * Help values()
    * Driver to add all values into a vector in ascending order.
    */
-  void helpValues(NodeT *curr, vector<char> &arr) const;
+  void helpValues(NodeT<K, V> *curr, vector<V> &arr) const;
   /**
    * Help keys()
    * Driver to add all keys into a vector in ascending order.
    */
-  void helpKeys(NodeT *curr, vector<int> &arr) const;
+  void helpKeys(NodeT<K, V> *curr, vector<K> &arr) const;
   /**
    * Help search().
    * Populate the array for values between left key and right key.
    */
-  void populateBetween(NodeT *curr, int leftKey, int rightKey, vector<char> &arr);
+  void populateBetween(NodeT<K, V> *curr, K leftKey, K rightKey, vector<V> &arr);
   /**
    * Return a reference to the node that is the next largest
    * compared to the given node.
    */
-  NodeT *successor(NodeT *x);
+  NodeT<K, V> *successor(NodeT<K, V> *x);
   /**
    * Returns a reference to the the node that will replace the deleted node.
    */
-  NodeT *replacement(NodeT *x);
+  NodeT<K, V> *replacement(NodeT<K, V> *x);
   /**
    * The driver for removing a node.
    */
-  void deleteNodeT(NodeT *v);
+  void deleteNodeT(NodeT<K, V> *v);
   /**
    * Prints the tree in order
    */
-  void inorder(NodeT *x) const;
+  void inorder(NodeT<K, V> *x) const;
 
 public:
 
@@ -224,38 +229,38 @@ public:
   /**
    * Return a reference to the root for testing.
    */
-  NodeT *getRoot(void) const;
+  NodeT<K, V> *getRoot(void) const;
   /**
    * If the tree does not contain key, inserts the key and value and
    * returns true, otherwise returns false without insertion.
    * The tree will never contain duplicate keys.
    * key and value are template parameters and may be different types.
    */
-  bool insert(int n, char c);
+  bool insert(K key, V val);
   /**
    * Removes the key and associated value from the tree and returns true.
    * Returns false if the tree does not contain the key.
    */
-  bool remove(int key);
+  bool remove(K key);
   /**
    * Searches for the key and returns true if found.
    * Otherwise returns false.
    */
-  bool search(int key) const;
+  bool search(K key) const;
   /**
    * Returns a vector that contains all the values whose keys are between
    * or equal to the first and second parameter keys.
    * The returned vector is in ascending order of the keys.
    */
-  vector<char> search(int leftKey, int rightKey);
+  vector<V> search(K leftKey, K rightKey);
   /**
    * Return a vector of all the values in ascending key order.
    */
-  vector<char> values(void);
+  vector<V> values(void);
   /**
    * Returns a vector of all the keys in ascending order.
    */
-  vector<int> keys(void);
+  vector<K> keys(void);
   /**
    * Returns the number of items stored in the tree.
    */
@@ -267,9 +272,11 @@ public:
   void printInOrder(void) const;
 };
 
-// private methods
+// private RedBlackTree methods
 
-void RedBlackTree::helpDeleteTree(NodeT *curr) {
+
+template <typename K, typename V>
+void RedBlackTree<K, V>::helpDeleteTree(NodeT<K, V> *curr) {
   // use a postorder traversal
   if(curr == nullptr)
     return;
@@ -282,17 +289,20 @@ void RedBlackTree::helpDeleteTree(NodeT *curr) {
   numNodes--;
 }
 
-void RedBlackTree::deleteTree(void) {
+
+template <typename K, typename V>
+void RedBlackTree<K, V>::deleteTree(void) {
   helpDeleteTree(root);
   root = nullptr;
 }
 
 
-void RedBlackTree::copyTree(RedBlackTree &tree) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::copyTree(RedBlackTree &tree) {
   deleteTree();
 
-  vector<int> keys = tree.keys();
-  vector<char> vals = tree.values();
+  vector<K> keys = tree.keys();
+  vector<V> vals = tree.values();
 
   assert(numNodes == 0);
   assert(keys.size() == vals.size());
@@ -305,9 +315,10 @@ void RedBlackTree::copyTree(RedBlackTree &tree) {
 }
 
 
-void RedBlackTree::leftRotate(NodeT *x) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::leftRotate(NodeT<K, V> *x) {
   // new parent will be NodeT's right child
-  NodeT *nParent = x->right;
+  NodeT<K, V> *nParent = x->right;
 
   // update root if current NodeT is root
   if (x == root)
@@ -327,9 +338,10 @@ void RedBlackTree::leftRotate(NodeT *x) {
 }
 
 
-void RedBlackTree::rightRotate(NodeT *x) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::rightRotate(NodeT<K, V> *x) {
   // new parent will be NodeT's left child
-  NodeT *nParent = x->left;
+  NodeT<K, V> *nParent = x->left;
 
   // update root if current NodeT is root
   if (x == root)
@@ -349,7 +361,8 @@ void RedBlackTree::rightRotate(NodeT *x) {
 }
 
 
-void RedBlackTree::swapColors(NodeT *x1, NodeT *x2) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::swapColors(NodeT<K, V> *x1, NodeT<K, V> *x2) {
   bool _tmp;
   _tmp = x1->isBlack;
   x1->isBlack = x2->isBlack;
@@ -357,7 +370,8 @@ void RedBlackTree::swapColors(NodeT *x1, NodeT *x2) {
 }
 
 
-void RedBlackTree::swapValues(NodeT *u, NodeT *v) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::swapValues(NodeT<K, V> *u, NodeT<K, V> *v) {
   int _tmp;
   _tmp = u->key;
   u->key = v->key;
@@ -365,16 +379,17 @@ void RedBlackTree::swapValues(NodeT *u, NodeT *v) {
 }
 
 
-void RedBlackTree::balanceInsert(NodeT *node) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::balanceInsert(NodeT<K, V> *node) {
   // node x is root, color it black and done
   if (node == root) {
     node->isBlack = true;
     return;
   }
 
-  NodeT *parent = node->parent;
-  NodeT *grandparent = parent->parent;
-  NodeT *uncle = node->uncle();
+  NodeT<K, V> *parent = node->parent;
+  NodeT<K, V> *grandparent = parent->parent;
+  NodeT<K, V> *uncle = node->uncle();
 
   if (!parent->isBlack) {
     // parent is red
@@ -418,12 +433,12 @@ void RedBlackTree::balanceInsert(NodeT *node) {
 }
 
 
-void RedBlackTree::fixDoubleBlack(NodeT *x) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::fixDoubleBlack(NodeT<K, V> *x) {
   if (x == root)
-  // Reached root
-  return;
+    return;
 
-  NodeT *sibling = x->sibling(), *parent = x->parent;
+  NodeT<K, V> *sibling = x->sibling(), *parent = x->parent;
   if (sibling == nullptr) {
     // No sibiling, double black pushed up
     fixDoubleBlack(parent);
@@ -483,15 +498,16 @@ void RedBlackTree::fixDoubleBlack(NodeT *x) {
 }
 
 
-NodeT * RedBlackTree::searchUtility(int n) const {
-  NodeT *_tmp = root;
+template <typename K, typename V>
+NodeT<K, V> * RedBlackTree<K, V>::searchUtility(K key) const {
+  NodeT<K, V> *_tmp = root;
   while (_tmp != nullptr) {
-    if (n < _tmp->key) {
+    if (key < _tmp->key) {
       if (_tmp->left == nullptr)
         break;
       else
         _tmp = _tmp->left;
-    } else if (n == _tmp->key) {
+    } else if (key == _tmp->key) {
       break;
     } else {
       if (_tmp->right == nullptr)
@@ -505,8 +521,9 @@ NodeT * RedBlackTree::searchUtility(int n) const {
 }
 
 
-NodeT * RedBlackTree::successor(NodeT *x) {
-  NodeT *_tmp = x;
+template <typename K, typename V>
+NodeT<K, V> * RedBlackTree<K, V>::successor(NodeT<K, V> *x) {
+  NodeT<K, V> *_tmp = x;
 
   while (_tmp->left != nullptr)
     _tmp = _tmp->left;
@@ -515,13 +532,14 @@ NodeT * RedBlackTree::successor(NodeT *x) {
 }
 
 
-NodeT * RedBlackTree::replacement(NodeT *node) {
+template <typename K, typename V>
+NodeT<K, V> * RedBlackTree<K, V>::replacement(NodeT<K, V> *node) {
   // node has two children
   if (node->left != nullptr && node->right != nullptr)
     return successor(node->right);
 
   // node is a leaf
-  if (node->left == nullptr and node->right == nullptr)
+  if (node->left == nullptr && node->right == nullptr)
     return nullptr;
 
   // node has one child
@@ -529,9 +547,10 @@ NodeT * RedBlackTree::replacement(NodeT *node) {
 }
 
 
-void RedBlackTree::deleteNodeT(NodeT *node) {
-  NodeT *replace = replacement(node);
-  NodeT *parent = node->parent;
+template <typename K, typename V>
+void RedBlackTree<K, V>::deleteNodeT(NodeT<K, V> *node) {
+  NodeT<K, V> *replace = replacement(node);
+  NodeT<K, V> *parent = node->parent;
 
   // replacement is black and node is black
   bool bothBlack = ((replace == nullptr || replace->isBlack) && (node->isBlack));
@@ -589,7 +608,8 @@ void RedBlackTree::deleteNodeT(NodeT *node) {
 }
 
 
-bool RedBlackTree::helpSearch(NodeT *curr, int key) const {
+template <typename K, typename V>
+bool RedBlackTree<K, V>::helpSearch(NodeT<K, V> *curr, K key) const {
   if(curr == nullptr)
     return false;
   if(key == curr->key)
@@ -604,7 +624,8 @@ bool RedBlackTree::helpSearch(NodeT *curr, int key) const {
 }
 
 
-void RedBlackTree::populateBetween(NodeT *curr, int leftKey, int rightKey, vector<char> &arr) {
+template <typename K, typename V>
+void RedBlackTree<K, V>::populateBetween(NodeT<K, V> *curr, K leftKey, K rightKey, vector<V> &arr) {
   if(curr == nullptr)
     return;
 
@@ -616,7 +637,8 @@ void RedBlackTree::populateBetween(NodeT *curr, int leftKey, int rightKey, vecto
 }
 
 
-void RedBlackTree::helpValues(NodeT *curr, vector<char> &arr) const {
+template <typename K, typename V>
+void RedBlackTree<K, V>::helpValues(NodeT<K, V> *curr, vector<V> &arr) const {
   if(curr == nullptr)
     return;
 
@@ -626,7 +648,8 @@ void RedBlackTree::helpValues(NodeT *curr, vector<char> &arr) const {
 }
 
 
-void RedBlackTree::helpKeys(NodeT *curr, vector<int> &arr) const {
+template <typename K, typename V>
+void RedBlackTree<K, V>::helpKeys(NodeT<K, V> *curr, vector<K> &arr) const {
   if(curr == nullptr)
     return;
 
@@ -636,7 +659,8 @@ void RedBlackTree::helpKeys(NodeT *curr, vector<int> &arr) const {
 }
 
 
-void RedBlackTree::inorder(NodeT *x) const {
+template <typename K, typename V>
+void RedBlackTree<K, V>::inorder(NodeT<K, V> *x) const {
   if (x == nullptr)
     return;
   inorder(x->left);
@@ -645,27 +669,31 @@ void RedBlackTree::inorder(NodeT *x) const {
 }
 
 
-// public methods
+// public RedBlackTree methods
 
 
-RedBlackTree::RedBlackTree(void) : numNodes{0} {
+template <typename K, typename V>
+RedBlackTree<K, V>::RedBlackTree(void) : numNodes{0} {
   root = nullptr;
 }
 
 
-RedBlackTree::RedBlackTree(RedBlackTree & tree) {
+template <typename K, typename V>
+RedBlackTree<K, V>::RedBlackTree(RedBlackTree & tree) {
   if(this != &tree) {
     copyTree(tree);
   }
 }
 
 
-RedBlackTree::~RedBlackTree() {
+template <typename K, typename V>
+RedBlackTree<K, V>::~RedBlackTree() {
   deleteTree();
 }
 
 
-RedBlackTree & RedBlackTree::operator= (RedBlackTree & tree) {
+template <typename K, typename V>
+RedBlackTree<K, V> & RedBlackTree<K, V>::operator= (RedBlackTree & tree) {
   // make a copy if it is a different tree.
   if(this != &tree) {
     copyTree(tree);
@@ -674,14 +702,15 @@ RedBlackTree & RedBlackTree::operator= (RedBlackTree & tree) {
 }
 
 
-
-NodeT * RedBlackTree::getRoot(void) const {
+template <typename K, typename V>
+NodeT<K, V> * RedBlackTree<K, V>::getRoot(void) const {
   return root;
 }
 
 
-bool RedBlackTree::insert(int key, char val) {
-  NodeT *newNodeT = new NodeT(key, val);
+template <typename K, typename V>
+bool RedBlackTree<K, V>::insert(K key, V val) {
+  NodeT<K, V> *newNodeT = new NodeT<K, V>(key, val);
   if (root == nullptr) {
     // nothing inserted, make a new root
     newNodeT->isBlack = true;
@@ -689,7 +718,7 @@ bool RedBlackTree::insert(int key, char val) {
 
     ++numNodes;
   } else {
-    NodeT *_tmp = searchUtility(key);
+    NodeT<K, V> *_tmp = searchUtility(key);
 
     if (_tmp->key == key) {
       // duplicate
@@ -716,12 +745,13 @@ bool RedBlackTree::insert(int key, char val) {
 }
 
 
-bool RedBlackTree::remove(int key) {
+template <typename K, typename V>
+bool RedBlackTree<K, V>::remove(K key) {
   if (root == nullptr)
   // Tree is empty
   return false;
 
-  NodeT *target = searchUtility(key);
+  NodeT<K, V> *target = searchUtility(key);
 
   if (target->key != key) {
     // did not find a node to delete
@@ -735,36 +765,41 @@ bool RedBlackTree::remove(int key) {
 }
 
 
-bool RedBlackTree::search(int key) const {
+template <typename K, typename V>
+bool RedBlackTree<K, V>::search(K key) const {
   return (helpSearch(root, key));
 }
 
 
-vector<char> RedBlackTree::search(int leftKey, int rightKey) {
-  vector<char> arr;
+template <typename K, typename V>
+vector<V> RedBlackTree<K, V>::search(K leftKey, K rightKey) {
+  vector<V> arr;
   populateBetween(root, leftKey, rightKey, arr);
 
   return arr;
 }
 
 
-vector<char> RedBlackTree::values(void) {
-  vector<char> arr;
+template <typename K, typename V>
+vector<V> RedBlackTree<K, V>::values(void) {
+  vector<V> arr;
   helpValues(root, arr);
 
   return arr;  // vector has move semantics
 }
 
 
-vector<int> RedBlackTree::keys(void) {
-  vector<int> arr;
+template <typename K, typename V>
+vector<K> RedBlackTree<K, V>::keys(void) {
+  vector<K> arr;
   helpKeys(root, arr);
 
   return arr;  // vector has move semantics
 }
 
 
-void RedBlackTree::printInOrder(void) const {
+template <typename K, typename V>
+void RedBlackTree<K, V>::printInOrder(void) const {
   cout << "Inorder: " << endl;
   if (root == nullptr)
     cout << "Tree is empty" << endl;
@@ -774,7 +809,8 @@ void RedBlackTree::printInOrder(void) const {
 }
 
 
-int & RedBlackTree::size(void) {
+template <typename K, typename V>
+int & RedBlackTree<K, V>::size(void) {
   return numNodes;
 }
 

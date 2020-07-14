@@ -8,7 +8,7 @@ using namespace std;
 
 
 int main(void) {
-  RedBlackTree tree;
+  RedBlackTree<int, char> tree;
 
   tree.insert(7, 'a');
   tree.insert(3, 'a');
@@ -35,12 +35,12 @@ int main(void) {
   tree.printInOrder();
 
 
-  RedBlackTree tree1;
+  RedBlackTree<int, char> tree1;
 
   cout << "Testing insert" << endl;
 
   tree1.insert(10, 'a');
-  NodeT * curr = tree1.getRoot();
+  NodeT<int, char> * curr = tree1.getRoot();
   assert(curr->isBlack);
 
   tree1.insert(20, 'b');
@@ -60,7 +60,7 @@ int main(void) {
   assert(curr->left->val == 'a');
   assert(curr->left->right->val == 'd');
 
-  RedBlackTree tree2;
+  RedBlackTree<int, char> tree2;
 
   tree2.insert(8, 'a');
   curr = tree2.getRoot();
@@ -179,7 +179,7 @@ int main(void) {
   assert(tree2.size() == 8);
   cout << "Passed size test!" << endl;
 
-  RedBlackTree tree3(tree2);
+  RedBlackTree<int, char> tree3(tree2);
 
   arr1 = tree3.values();
   cout << "All values in the tree3 in order:" << endl;
@@ -196,8 +196,16 @@ int main(void) {
     cout << el << ", ";
   cout << endl << endl;
 
+  cout << "Test other types:" << endl;
+
+  RedBlackTree<double, float> tree4;
+  tree4.insert(3.4, 2.4);
+  tree4.insert(2.3, 3.4);
+  tree4.insert(1.58, 4.54);
+  tree4.insert(129.4, 4.4);
+
+  tree4.printInOrder();
 
   cout << "Reached end of program with exit code 0!" << endl;
-
   return 0;
 }
