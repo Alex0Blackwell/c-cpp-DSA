@@ -173,9 +173,28 @@ int main(void) {
     cout << el << ", ";
   cout << endl << endl;
 
+  cout << endl << "Testing size" << endl;
+  assert(tree.size() == 6);
+  assert(tree1.size() == 4);
+  assert(tree2.size() == 8);
+  cout << "Passed size test!" << endl;
+
+  RedBlackTree tree3(tree2);
+
+  arr1 = tree3.values();
+  cout << "All values in the tree3 in order:" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
 
 
+  tree3 = tree1;
 
+  arr1 = tree3.values();
+  cout << "All values in the tree3 in order:" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
 
 
   cout << "Reached end of program with exit code 0!" << endl;

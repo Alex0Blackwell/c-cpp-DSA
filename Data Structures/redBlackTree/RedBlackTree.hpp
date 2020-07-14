@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+#include <assert.h>
 
 using std::cout;
 using std::endl;
@@ -27,30 +28,24 @@ public:
    */
   explicit NodeT(int key, char val);
 
-
   /**
    * Returns a reference to the uncle node of this node.
    * Returns nullptr if there is no uncle.
    */
   NodeT *uncle(void) const;
-
   /**
    * Check if this node is a left child.
    */
   bool isLeftChild(void) const;
-
   /**
    * Returns a reference to the sibling of this node.
    * Returns nullptr if there is no sibling.
    */
   NodeT *sibling(void) const;
-
   /**
    * Check if this node has a red child.
    */
   bool hasRedChild() const;
-
-
   /**
    * Moves this node down and moves the given node in it's place.
    */
@@ -122,88 +117,87 @@ class RedBlackTree {
   NodeT *root;
   int numNodes;
 
+private:
+
+  /**
+   * Help deleteTree() to deallocate the tree.
+   */
+  void helpDeleteTree(NodeT *curr);
+  /**
+   * Deallocate the tree.
+   */
+  void deleteTree(void);
+  /**
+  * Create a deep copy.
+  */
+  void copyTree(RedBlackTree &tree);
   /**
    * Left rotates the given NodeT.
    */
   void leftRotate(NodeT *x);
-
   /**
    * Right rotates the given NodeT.
    */
   void rightRotate(NodeT *x);
-
   /**
    * Swaps the colors of the given nodes.
    */
   void swapColors(NodeT *node1, NodeT *node2);
-
   /**
    * Swaps the values of the given nodes.
    */
   void swapValues(NodeT *node1, NodeT *node2);
-
   /**
    * Fix double red at NodeT if it exists.
    * Fix done by recoloring, or performing rotations.
    */
   void balanceInsert(NodeT *x);
-
   /**
    * Fix double black case when removing and a
    * black node is replaced by a black child.
    * Fix done by recoloring, or performing rotations.
    */
   void fixDoubleBlack(NodeT *x);
-
   /**
    * Searches for a given key.
    * If found, returns a reference (used in deletion).
    * If not found, return the last node while traversing (used in insertion).
    */
   NodeT *searchUtility(int n) const;
-
   /**
    * Help search();
    * Return true if key exists in the tree.
    * Return false otherwise.
    */
   bool helpSearch(NodeT *curr, int key) const;
-
   /**
    * Help values()
    * Driver to add all values into a vector in ascending order.
    */
   void helpValues(NodeT *curr, vector<char> &arr) const;
-
   /**
    * Help keys()
    * Driver to add all keys into a vector in ascending order.
    */
   void helpKeys(NodeT *curr, vector<int> &arr) const;
-
   /**
    * Help search().
    * Populate the array for values between left key and right key.
    */
   void populateBetween(NodeT *curr, int leftKey, int rightKey, vector<char> &arr);
-
   /**
    * Return a reference to the node that is the next largest
    * compared to the given node.
    */
   NodeT *successor(NodeT *x);
-
   /**
    * Returns a reference to the the node that will replace the deleted node.
    */
   NodeT *replacement(NodeT *x);
-
   /**
    * The driver for removing a node.
    */
   void deleteNodeT(NodeT *v);
-
-
   /**
    * Prints the tree in order
    */
@@ -215,9 +209,22 @@ public:
    * Constructor, initialize numNodes and root
    */
   explicit RedBlackTree(void);
-
+  /**
+   * Overloaded constructor for copying one tree into another.
+   */
+  explicit RedBlackTree(RedBlackTree & x);
+  /**
+   * Destructor, deallocates all the nodes in the tree.
+   */
+  ~RedBlackTree();
+  /**
+   * Assign a given tree to this tree.
+   */
+  RedBlackTree & operator= (RedBlackTree & x);
+  /**
+   * Return a reference to the root for testing.
+   */
   NodeT *getRoot(void) const;
-
   /**
    * If the tree does not contain key, inserts the key and value and
    * returns true, otherwise returns false without insertion.
@@ -225,36 +232,34 @@ public:
    * key and value are template parameters and may be different types.
    */
   bool insert(int n, char c);
-
   /**
    * Removes the key and associated value from the tree and returns true.
    * Returns false if the tree does not contain the key.
    */
   bool remove(int key);
-
   /**
    * Searches for the key and returns true if found.
    * Otherwise returns false.
    */
   bool search(int key) const;
-
   /**
    * Returns a vector that contains all the values whose keys are between
    * or equal to the first and second parameter keys.
    * The returned vector is in ascending order of the keys.
    */
   vector<char> search(int leftKey, int rightKey);
-
   /**
    * Return a vector of all the values in ascending key order.
    */
   vector<char> values(void);
-
   /**
    * Returns a vector of all the keys in ascending order.
    */
   vector<int> keys(void);
-
+  /**
+   * Returns the number of items stored in the tree.
+   */
+  int & size(void);
 
   /**
    * Prints an inorder traversal of the tree.
@@ -263,6 +268,42 @@ public:
 };
 
 // private methods
+
+void RedBlackTree::helpDeleteTree(NodeT *curr) {
+  // use a postorder traversal
+  if(curr == nullptr)
+    return;
+
+  helpDeleteTree(curr->left);
+  helpDeleteTree(curr->right);
+
+  delete curr;
+  curr = nullptr;
+  numNodes--;
+}
+
+void RedBlackTree::deleteTree(void) {
+  helpDeleteTree(root);
+  root = nullptr;
+}
+
+
+void RedBlackTree::copyTree(RedBlackTree &tree) {
+  deleteTree();
+
+  vector<int> keys = tree.keys();
+  vector<char> vals = tree.values();
+
+  assert(numNodes == 0);
+  assert(keys.size() == vals.size());
+
+  for(size_t i = 0; i < keys.size(); ++i) {
+    insert(keys[i], vals[i]);
+  }
+
+  return;
+}
+
 
 void RedBlackTree::leftRotate(NodeT *x) {
   // new parent will be NodeT's right child
@@ -606,9 +647,32 @@ void RedBlackTree::inorder(NodeT *x) const {
 
 // public methods
 
+
 RedBlackTree::RedBlackTree(void) : numNodes{0} {
   root = nullptr;
 }
+
+
+RedBlackTree::RedBlackTree(RedBlackTree & tree) {
+  if(this != &tree) {
+    copyTree(tree);
+  }
+}
+
+
+RedBlackTree::~RedBlackTree() {
+  deleteTree();
+}
+
+
+RedBlackTree & RedBlackTree::operator= (RedBlackTree & tree) {
+  // make a copy if it is a different tree.
+  if(this != &tree) {
+    copyTree(tree);
+  }
+  return *this;
+}
+
 
 
 NodeT * RedBlackTree::getRoot(void) const {
@@ -629,6 +693,7 @@ bool RedBlackTree::insert(int key, char val) {
 
     if (_tmp->key == key) {
       // duplicate
+      delete newNodeT;  // not added so must be deleted
       return false;
     }
     // node not in tree so searchUtility returns where
@@ -698,6 +763,7 @@ vector<int> RedBlackTree::keys(void) {
   return arr;  // vector has move semantics
 }
 
+
 void RedBlackTree::printInOrder(void) const {
   cout << "Inorder: " << endl;
   if (root == nullptr)
@@ -705,6 +771,11 @@ void RedBlackTree::printInOrder(void) const {
   else
     inorder(root);
   cout << endl;
+}
+
+
+int & RedBlackTree::size(void) {
+  return numNodes;
 }
 
 
