@@ -1,8 +1,15 @@
 //https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
+
+#ifndef REDBLACKTREE_H
+#define REDBLACKTREE_H
+
+
 #include <iostream>
+#include <vector>
 
 using std::cout;
 using std::endl;
+using std::vector;
 
 
 
@@ -156,6 +163,19 @@ class RedBlackTree {
   NodeT *searchUtility(int n) const;
 
   /**
+   * Help search();
+   * Return true if key exists in the tree.
+   * Return false otherwise.
+   */
+  bool helpSearch(NodeT *curr, int key) const;
+
+  /**
+   * Help search().
+   * Populate the array for values between left key and right key.
+   */
+  void populateBetween(NodeT *curr, int leftKey, int rightKey, vector<char> &arr);
+
+  /**
    * Return a reference to the node that is the next largest
    * compared to the given node.
    */
@@ -199,6 +219,20 @@ public:
    * Returns false if the tree does not contain the key.
    */
   bool remove(int key);
+
+  /**
+   * Searches for the key and returns true if found.
+   * Otherwise returns false.
+   */
+  bool search(int key) const;
+
+  /**
+   * Returns a vector that contains all the values whose keys are between
+   * or equal to the first and second parameter keys.
+   * The returned vector is in ascending order of the keys.
+   */
+  vector<char> search(int leftKey, int rightKey);
+
 
   /**
    * Prints an inorder traversal of the tree.
@@ -492,6 +526,36 @@ void RedBlackTree::deleteNodeT(NodeT *node) {
 }
 
 
+bool RedBlackTree::helpSearch(NodeT *curr, int key) const {
+  if(curr == nullptr)
+    return false;
+  if(key == curr->key)
+    return true;
+
+  if(key < curr->key)
+    return helpSearch(curr->left, key);
+  if(key > curr->key)
+    return helpSearch(curr->right, key);
+
+  return false;
+}
+
+
+void RedBlackTree::populateBetween(NodeT *curr, int leftKey, int rightKey, vector<char> &arr) {
+  if(curr == nullptr)
+    return;
+
+  populateBetween(curr->left, leftKey, rightKey, arr);
+  if(curr->key >= leftKey && curr->key <= rightKey)
+    arr.push_back(curr->val);
+  populateBetween(curr->right, leftKey, rightKey, arr);
+
+}
+
+
+
+
+
 void RedBlackTree::inorder(NodeT *x) const {
   if (x == nullptr)
     return;
@@ -567,6 +631,22 @@ bool RedBlackTree::remove(int key) {
 }
 
 
+bool RedBlackTree::search(int key) const {
+  return (helpSearch(root, key));
+}
+
+
+vector<char> RedBlackTree::search(int leftKey, int rightKey) {
+  vector<char> arr;
+  populateBetween(root, leftKey, rightKey, arr);
+
+  return arr;
+}
+
+
+
+
+
 void RedBlackTree::printInOrder(void) const {
   cout << "Inorder: " << endl;
   if (root == nullptr)
@@ -575,3 +655,6 @@ void RedBlackTree::printInOrder(void) const {
     inorder(root);
   cout << endl;
 }
+
+
+#endif /* end of include guard: REDBLACKTREE_H  */

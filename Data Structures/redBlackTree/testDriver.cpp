@@ -135,8 +135,32 @@ int main(void) {
 
   cout << "Insert test passed!" << endl;
 
+  tree2.printInOrder();
 
-  tree2.remove(40);
+  cout << "Testing search:" << endl;
+
+  vector<char> arr1;
+  arr1 = tree2.search(20, 50);
+
+  cout << "20 - 50" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
+
+  arr1 = tree2.search(5, 80);
+
+  cout << "5 - 80" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
+
+  arr1 = tree2.search(85, 90);
+
+
+  cout << "85 - 90" << endl;
+  for(auto el : arr1)
+    cout << el << ", ";
+  cout << endl << endl;
 
 
 
