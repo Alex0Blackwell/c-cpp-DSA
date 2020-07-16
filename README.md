@@ -114,6 +114,17 @@ This repository is for small C and C++ programs I do outside of my school work. 
 		- pop from the front *O(1)*
 		- assign Queue *(=)*
 		- print the Queue
+- **Red Black Binary Tree Hash Table**
+  - ***Methods include***
+    - assign one tree to another with the overloaded assignment operator *O(n)*
+    - insertion *O(log(n))*
+    - removal *O(log(n))*
+    - search *O(log(n))*
+    - search and return a vector of all the values of the keys within two given key values *O(log(n))*
+    - return a vector of all the values in ascending order *O(n)*
+    - return a vector of all the keys in ascending order *O(n)*
+    - return the number of nodes in the tree *O(1)*
+    - print the keys and values in ascending order for debugging *O(n)*
 - **Stack**
 	- ***Methods include***
 		- check if empty
