@@ -33,6 +33,12 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - terminal text animation
 
 ## C++ Programs
+- **macm-formulas**
+    - forumlas used in MACM *including:*
+        - combinations
+        - permutations
+        - combinations with repetition
+        - dearangements
 - GKSRoundAq1.cpp
     - my solution for Google Kick Start round A, question 1
 - GKSRoundAq2.cpp
