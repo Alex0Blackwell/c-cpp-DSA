@@ -155,6 +155,14 @@ This repository is for small C and C++ programs I do outside of my school work. 
 		- deallocate all the Nodes
 		- print the Deque
 		- *Note that this program uses templates so it works for all types :)*
+- **Binary Heap**
+  - ***Methods Include***
+    - check if empty
+    - get the minimum element
+    - insert
+    - delete the minimum element
+    - make the heap empty
+		- *Note that this program uses templates so it works for all types :)*
 
 ## Sorting-Searching
 
