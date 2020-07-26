@@ -60,6 +60,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
 - fibonacci.cpp
     - three ways of making the fibonacci sequence
     - naive recursive, memoized recursive, and sequential
+- getMinimum.cpp
+    - recursively return the minimum element of a vector
+    - generic programming using templates
 - multiplyWithAdd.cpp
     - multiplication using only addition
 - numOfBSTs.cpp
@@ -157,12 +160,12 @@ This repository is for small C and C++ programs I do outside of my school work. 
 		- *Note that this program uses templates so it works for all types :)*
 - **Binary Heap**
   - ***Methods Include***
-    - check if empty
-    - get the minimum element
-    - insert
-    - delete the minimum element
-    - make the heap empty
-		- *Note that this program uses templates so it works for all types :)*
+    - check if empty *O(1)*
+    - get the minimum element *O(1)*
+    - insert *O(log(n))*
+    - delete the minimum element *O(log(n))*
+    - make the heap empty *O(1)*
+    - *Note that this program uses templates so it works for all types :)*
 
 ## Sorting-Searching
 
