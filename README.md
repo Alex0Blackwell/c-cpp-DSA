@@ -1,4 +1,4 @@
-# C and C++ Projects
+# C and C++ Data Structures and Algorithms
 
 ## Table of contents
 * [Overview](#overview)
