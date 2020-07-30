@@ -12,14 +12,18 @@ int main(void) {
   typedef std::pair<std::string, int> pair;
   Hashtable table1;
 
-  table1.insert(pair("test", 1));
-  cout << table1.get("test") << endl;
+  for(int i = 0; i < 101; ++i)
+    table1.insert(pair("a"+std::to_string(i),i));
 
-  table1.insert(pair("test", 2));
-  cout << table1.get("test") << endl;
+  assert(table1.get("a41") == 41);
+  std::cout << "after" << '\n';
+  table1.print();
 
-  table1.insert(pair("test2", 10));
-  cout << table1.get("test2") << endl;
+  std::cout << "after remove:" << '\n';
+  table1.remove("a41");
+  table1.print();
+
+  std::cout << "Exited with status code 0!" << std::endl;
 
   return 0;
 }
