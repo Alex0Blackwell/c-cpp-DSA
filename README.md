@@ -41,7 +41,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
         - dearangements
 - anagramCheck.cpp
     - determine two words are anagrams for eachother
-    - Leetcode problem [here](https://leetcode.com/problems/valid-anagram/submissions/)
+    - Leetcode problem [here](https://leetcode.com/problems/valid-anagram/)
 - GKSRoundAq1.cpp
     - my solution for Google Kick Start round A, question 1
 - GKSRoundAq2.cpp
@@ -72,6 +72,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - number of BST's that can be made with a given number
 - proveEvenNums.cpp
     - induction proof for printing even numbers
+- reverseCharOnly.cpp
+    - reverse only the characters in the string
+    - Leetcode problem found [here](https://leetcode.com/problems/reverse-only-letters/)
 - reverseStr.cpp
 - romanToDecimal.cpp
     - given roman numerals, return a decimal number
