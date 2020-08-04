@@ -39,6 +39,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
         - permutations
         - combinations with repetition
         - dearangements
+- anagramCheck.cpp
+    - determine two words are anagrams for eachother
+    - Leetcode problem [here](https://leetcode.com/problems/valid-anagram/submissions/)
 - GKSRoundAq1.cpp
     - my solution for Google Kick Start round A, question 1
 - GKSRoundAq2.cpp
