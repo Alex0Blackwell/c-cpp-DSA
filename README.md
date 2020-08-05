@@ -6,6 +6,8 @@
 * [Data Structures](#data-structures)
 * [Sorting-Searching](#sorting-searching)
 
+[![Image](./.pictures/intro-card.png)](https://github.com/Alex0Blackwell/c-cpp-DSA)
+
 ## Overview
 This repository is for small C and C++ programs I do outside of my school work. The repository includes data structures and algorithms that I have done for practice.
 
