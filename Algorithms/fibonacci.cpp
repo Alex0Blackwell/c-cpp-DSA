@@ -39,6 +39,25 @@ int fib3(int num) {
   return vect[num - 1];
 }
 
+
+/* another sequential solution, O(n) */
+int fib4(int num) {
+  if(num == 0 || num == 1)
+    return num;
+
+  int res = 0;
+  int twoAgo = 0;
+  int oneAgo = 1;
+  for(int i = 2; i <= num; ++i) {
+      res = twoAgo + oneAgo;
+      twoAgo = oneAgo;
+      oneAgo = res;
+  }
+
+  return res;
+}
+
+
 int main(void) {
   int num;
   cout << "Enter a number: " << endl;
