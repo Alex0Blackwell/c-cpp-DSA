@@ -63,11 +63,13 @@ This repository is for small C and C++ programs I do outside of my school work. 
 - definedAsBad.cpp
   - a program rewritten with #Define
 - fibonacci.cpp
-    - three ways of making the fibonacci sequence
-    - naive recursive, memoized recursive, and sequential
+    - four ways of making the fibonacci sequence
+    - naive recursive, memoized recursive, sequenctial and sequential
 - getMinimum.cpp
     - recursively return the minimum element of a vector
     - generic programming using templates
+- macmFindNum.cpp
+    - find a number such that abc = a! + b! + c!
 - multiplyWithAdd.cpp
     - multiplication using only addition
 - numOfBSTs.cpp
