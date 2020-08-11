@@ -68,6 +68,8 @@ This repository is for small C and C++ programs I do outside of my school work. 
 - getMinimum.cpp
     - recursively return the minimum element of a vector
     - generic programming using templates
+- kWeakestRows.cpp
+    - Given a m * n matrix mat of ones (representing soldiers) and zeros (representing civilians), return the indexes of the k weakest rows in the matrix ordered from the weakest to the strongest.
 - macmFindNum.cpp
     - find a number such that abc = a! + b! + c!
 - multiplyWithAdd.cpp
