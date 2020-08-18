@@ -78,6 +78,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - number of BST's that can be made with a given number
 - proveEvenNums.cpp
     - induction proof for printing even numbers
+- removeAdjacentDups.cpp
+    - Given a string S of lowercase letters, a duplicate removal consists of choosing two adjacent and equal letters, and removing them. We repeatedly make duplicate removals on S until we no longer can.
+    - Leetcode problem found [here](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
 - reverseCharOnly.cpp
     - reverse only the characters in the string
     - Leetcode problem found [here](https://leetcode.com/problems/reverse-only-letters/)
