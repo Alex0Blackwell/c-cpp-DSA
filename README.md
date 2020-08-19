@@ -54,6 +54,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - algorithm practice
 - barPblm2.cpp
     - more direct solution
+- binaryLLtoInt.cpp
+    - Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
+    - Leetcode problem [here](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/)
 - bracketCheck.cpp
     - check for valid brackets using a stack
 - calcE.cpp
@@ -61,7 +64,10 @@ This repository is for small C and C++ programs I do outside of my school work. 
 - employee.cpp
     - class practice
 - definedAsBad.cpp
-  - a program rewritten with #Define
+    - a program rewritten with #Define
+- destinationCity.cpp
+    - You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists a direct path going from cityAi to cityBi. Return the destination city, that is, the city without any path outgoing to another city.
+    - Leetcode problem [here](https://leetcode.com/problems/destination-city/)
 - fibonacci.cpp
     - four ways of making the fibonacci sequence
     - naive recursive, memoized recursive, sequenctial and sequential
@@ -89,6 +95,8 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - given roman numerals, return a decimal number
 - strReverseInP.cpp
     - reverse string in place
+- toLowerCase.cpp
+    - Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
 - word2num.cpp
     - given a word (two thousand five hundred and one) a number is returned (2501)
 
