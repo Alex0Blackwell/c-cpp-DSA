@@ -14,7 +14,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Algorithms
 
-### C programs
+#### C programs
 <details>
   <summary>Expand C Programs</summary>
 
@@ -39,7 +39,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-## C++ Programs
+#### C++ Programs
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -113,7 +113,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Data Structures
 
-### C Programs
+#### C Programs
 <details>
   <summary>Expand C Data Structures</summary>
 
@@ -122,7 +122,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-### C++ Programs
+#### C++ Programs
 <details>
   <summary>Expand C++ Data Structures</summary>
 
@@ -214,7 +214,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Sorting-Searching
 
-### C Programs
+#### C Programs
 
 <details>
   <summary>Expand C Sorting-Searching</summary>
@@ -237,7 +237,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-### C++ Programs
+#### C++ Programs
 
 <details>
   <summary>Expand C++ Sorting-Searching</summary>
