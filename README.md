@@ -14,7 +14,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Algorithms
 
-### C programs
+#### C programs
 <details>
   <summary>Expand C Programs</summary>
 
@@ -39,7 +39,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-## C++ Programs
+#### C++ Programs
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -116,7 +116,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Data Structures
 
-### C Programs
+#### C Programs
 <details>
   <summary>Expand C Data Structures</summary>
 
@@ -125,13 +125,11 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-### C++ Programs
+#### C++ Programs
 <details>
   <summary>Expand C++ Data Structures</summary>
 
-  - hashtable.cpp
-  - *BST*
-    - **Binary Search Tree**
+  - **Binary Search Tree**
   	- ***Methods include***
   		- insert
   		- delete
@@ -147,7 +145,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
   		- return the least depth from the root
   		- print the tree level by level
   - **Singly Linked List**
-  	- *Methods include*
+  	- ***Methods include***
   		- get value at front
   		- get value at back
   		- get the size
@@ -217,7 +215,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 ## Sorting-Searching
 
-### C Programs
+#### C Programs
 
 <details>
   <summary>Expand C Sorting-Searching</summary>
@@ -240,7 +238,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-### C++ Programs
+#### C++ Programs
 
 <details>
   <summary>Expand C++ Sorting-Searching</summary>
