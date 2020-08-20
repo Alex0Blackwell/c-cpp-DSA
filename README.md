@@ -126,9 +126,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 <details>
   <summary>Expand C++ Data Structures</summary>
 
-  - hashtable.cpp
-  - *BST*
-    - **Binary Search Tree**
+  - **Binary Search Tree**
   	- ***Methods include***
   		- insert
   		- delete
@@ -144,7 +142,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
   		- return the least depth from the root
   		- print the tree level by level
   - **Singly Linked List**
-  	- *Methods include*
+  	- ***Methods include***
   		- get value at front
   		- get value at back
   		- get the size
