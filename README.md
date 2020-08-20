@@ -80,6 +80,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - fibonacci.cpp
     - four ways of making the fibonacci sequence
     - naive recursive, memoized recursive, sequenctial and sequential
+  - flippingAnImage.cpp
+    - Given a binary matrix A, we want to flip the image horizontally, then invert it, and return the resulting image.
+    - Leetcode problem [here](https://leetcode.com/problems/flipping-an-image/)
   - getMinimum.cpp
     - recursively return the minimum element of a vector
     - generic programming using templates
