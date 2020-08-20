@@ -210,6 +210,13 @@ This repository is for small C and C++ programs I do outside of my school work. 
       - delete the minimum element *O(log(n))*
       - make the heap empty *O(1)*
       - *Note that this program uses templates so it works for all types :)*
+  - **MinStack.cpp**
+    - ***Methods Include***
+      - push element onto the stack *O(1)*
+      - pop element off the stack *O(n)*
+        - *O(n)* because will iterate through all elements if the element popped was the minimum element.
+      - get the top element *O(1)*
+      - get the minimum element in the stack *O(1)*
 
 </details>
 
