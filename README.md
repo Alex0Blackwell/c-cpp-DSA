@@ -108,6 +108,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - reverseStr.cpp
   - romanToDecimal.cpp
     - given roman numerals, return a decimal number
+  - sortArrayByParity.cpp
+    - Given an array A of non-negative integers, half of the integers in A are odd, and half of the integers are even. Sort the array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is even.
+    - Leetcode problem found [here](https://leetcode.com/problems/sort-array-by-parity-ii/)
   - strReverseInP.cpp
     - reverse string in place
   - toLowerCase.cpp
