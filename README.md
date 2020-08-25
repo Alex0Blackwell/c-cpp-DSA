@@ -70,6 +70,10 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - check for valid brackets using a stack
   - calcE.cpp
     - calculate Eulers number using a taylor series
+  - climbingStairs.cpp
+    - You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+    - Memoized recursive solution
+    - Leetcode problem [here](https://leetcode.com/explore/learn/card/recursion-i/255/recursion-memoization/1662/)
   - employee.cpp
     - class practice
   - definedAsBad.cpp
