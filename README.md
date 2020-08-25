@@ -104,6 +104,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - multiplication using only addition
   - numOfBSTs.cpp
     - number of BST's that can be made with a given number
+  - pow.cpp
+    - Implement pow(x, n), which calculates x raised to the power n
+    - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/256/complexity-analysis/2380/)
   - proveEvenNums.cpp
     - induction proof for printing even numbers
   - removeAdjacentDups.cpp
