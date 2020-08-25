@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -27,8 +28,27 @@ int fib2(int num, vector < int > prev) {
   return res;
 }
 
+/** memoized recursive solution, O(n) */
+map<int, int> cache;
+
+int fib3(int N) {
+    int res = cache[N];
+    if(res != 0)
+        return res;
+
+    if(N == 0)
+        res = 0;
+    else if(N == 1)
+        res = 1;
+    else
+        res = fib3(N-1) + fib3(N-2);
+
+    cache[N] = res;
+    return res;
+}
+
 /* sequential solution, not cool but the best :), O(n) */
-int fib3(int num) {
+int fib4(int num) {
   vector < int > vect(num, 0);
 
   vect[0] = vect[1] = 1;
@@ -41,7 +61,7 @@ int fib3(int num) {
 
 
 /* another sequential solution, O(n) */
-int fib4(int num) {
+int fib5(int num) {
   if(num == 0 || num == 1)
     return num;
 
