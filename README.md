@@ -94,6 +94,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - Given a m * n matrix mat of ones (representing soldiers) and zeros (representing civilians), return the indexes of the k weakest rows in the matrix ordered from the weakest to the strongest.
   - macmFindNum.cpp
     - find a number such that abc = a! + b! + c!
+  - maxDepthBinaryTree.cpp
+    - Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+    - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/256/complexity-analysis/2375/)
   - maxProductInArr.cpp
     - Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)\*(nums[j]-1).
     - Leetcode problem found [here](https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/)
