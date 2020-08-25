@@ -100,6 +100,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - maxProductInArr.cpp
     - Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)\*(nums[j]-1).
     - Leetcode problem found [here](https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/)
+  - mergeTwoSortedLists.cpp
+    - Merge two sorted linked lists and return it as a new sorted list. The new list should be made by splicing together the nodes of the first two lists.
+    - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/253/conclusion/2382/)
   - multiplyWithAdd.cpp
     - multiplication using only addition
   - numOfBSTs.cpp
