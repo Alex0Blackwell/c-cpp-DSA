@@ -110,6 +110,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - reverse only the characters in the string
     - Leetcode problem found [here](https://leetcode.com/problems/reverse-only-letters/)
   - reverseStr.cpp
+  - reverseStrRecursive.cpp
+    - recursively reverse vector
+    - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/250/principle-of-recursion/1440/)
   - romanToDecimal.cpp
     - given roman numerals, return a decimal number
   - sortArrayByParity.cpp
