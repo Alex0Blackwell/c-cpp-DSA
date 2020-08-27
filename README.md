@@ -90,6 +90,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - getMinimum.cpp
     - recursively return the minimum element of a vector
     - generic programming using templates
+  - increasingOrderSearchTree.cpp
+    - Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.
+    - Leetcode problem [here](https://leetcode.com/problems/increasing-order-search-tree/)
   - kWeakestRows.cpp
     - Given a m * n matrix mat of ones (representing soldiers) and zeros (representing civilians), return the indexes of the k weakest rows in the matrix ordered from the weakest to the strongest.
   - macmFindNum.cpp
