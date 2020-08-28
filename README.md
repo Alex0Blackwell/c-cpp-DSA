@@ -106,6 +106,8 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - mergeTwoSortedLists.cpp
     - Merge two sorted linked lists and return it as a new sorted list. The new list should be made by splicing together the nodes of the first two lists.
     - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/253/conclusion/2382/)
+  - miniMaxSum.cpp
+    - HackerRank problem found [here](https://www.hackerrank.com/challenges/mini-max-sum/problem)
   - multiplyWithAdd.cpp
     - multiplication using only addition
   - numOfBSTs.cpp
