@@ -110,6 +110,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - HackerRank problem found [here](https://www.hackerrank.com/challenges/mini-max-sum/problem)
   - multiplyWithAdd.cpp
     - multiplication using only addition
+  - nonDecreasingArray.cpp
+    - Given an array nums with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element. We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
+    - Leetcode problem found [here](https://leetcode.com/problems/non-decreasing-array/)
   - numOfBSTs.cpp
     - number of BST's that can be made with a given number
   - pow.cpp
