@@ -68,6 +68,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - Leetcode problem [here](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/)
   - bracketCheck.cpp
     - check for valid brackets using a stack
+  - bstFromPreorder.cpp
+    - Return the root node of a binary search tree that matches the given preorder traversal.
+    - Leetcode problem [here](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)
   - calcE.cpp
     - calculate Eulers number using a taylor series
   - climbingStairs.cpp
