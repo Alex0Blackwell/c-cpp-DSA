@@ -159,6 +159,9 @@ Click to expand the 43 *C++ programs*!
   - sumNodesEvenGrandparent.cpp
     - Given a binary tree, return the sum of values of nodes with even-valued grandparent.  (A grandparent of a node is the parent of its parent, if it exists.) If there are no nodes with an even-valued grandparent, return 0.
     - Leetcode problem found [here](https://leetcode.com/problems/sum-of-nodes-with-even-valued-grandparent/)
+  - sumOfRootToLeafBinary.cpp
+    - You are given the root of a binary tree where each node has a value 0 or 1.  Each root-to-leaf path represents a binary number starting with the most significant bit.  For example, if the path is 0 -> 1 -> 1 -> 0 -> 1, then this could represent 01101 in binary, which is 13.
+    - Leetcode problem found [here](https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/)
   - toLowerCase.cpp
     - Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
   - word2num.cpp
