@@ -9,12 +9,13 @@
 * [Sorting-Searching](#sorting-searching)
 
 ## Overview
-This repository is for small C and C++ programs I do outside of my school work. The repository includes data structures and algorithms that I have done for practice.
+This repository is for small C and C++ programs I do outside of my school work. The repository includes data structures and algorithms that I have done for practice. Expand the sections below to learn more about each program. Feel free to fork this repository and work through some of the data structures and algorithms yourself. I will give comments on your work if you submit a pull request!
 
 
 ## Algorithms
 
 #### C programs
+Click to expand the 9 *C programs*!
 <details>
   <summary>Expand C Programs</summary>
 
@@ -40,6 +41,7 @@ This repository is for small C and C++ programs I do outside of my school work. 
 </details>
 
 #### C++ Programs
+Click to expand the 42 *C++ programs*!
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -123,6 +125,11 @@ This repository is for small C and C++ programs I do outside of my school work. 
     - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/256/complexity-analysis/2380/)
   - proveEvenNums.cpp
     - induction proof for printing even numbers
+  - pyramidImage.cpp
+    - Display a pyramid of a given height
+  - rangeSumBST.cpp
+    - Given the root node of a binary search tree, return the sum of values of all nodes with value between L and R (inclusive).
+    - Leetcode problem found [here](https://leetcode.com/problems/range-sum-of-bst/)
   - removeAdjacentDups.cpp
     - Given a string S of lowercase letters, a duplicate removal consists of choosing two adjacent and equal letters, and removing them. We repeatedly make duplicate removals on S until we no longer can.
     - Leetcode problem found [here](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
@@ -150,9 +157,12 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
+---
+
 ## Data Structures
 
-#### C Programs
+#### C Data Structures
+Click to expand the 1 *C data structure*!
 <details>
   <summary>Expand C Data Structures</summary>
 
@@ -161,7 +171,8 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-#### C++ Programs
+#### C++ Data Structures
+Click to expand the 8 *C++ data structures*!
 <details>
   <summary>Expand C++ Data Structures</summary>
 
@@ -256,9 +267,13 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
+---
+
 ## Sorting-Searching
 
-#### C Programs
+#### C Sorting-Searching
+
+Click to expand the 8 *C Sorting-Searching Algorithms*!
 
 <details>
   <summary>Expand C Sorting-Searching</summary>
@@ -281,7 +296,9 @@ This repository is for small C and C++ programs I do outside of my school work. 
 
 </details>
 
-#### C++ Programs
+#### C++ Sorting-Searching
+
+Click to expand the 4 *C++ Sorting-Searching Algorithms*!
 
 <details>
   <summary>Expand C++ Sorting-Searching</summary>
@@ -289,10 +306,10 @@ This repository is for small C and C++ programs I do outside of my school work. 
   - mergeSort.cpp
   - reverseMerge.cpp
     - sort in descending order  
-  - *binSearch-mergeSort*
+  - binSearch-mergeSort
     - **Binary Search and Merge Sort**
       - Binary and Merge sort with generics programming
-  - *quicksort*
+  - quicksort
     - **Quicksort with median-of-three pivot**
       - This Quicksort uses a median-of-three pivot. This means that the pivot is chosen by sorting the first element, the last and the middle element, and taking the median. This method ensures that the worst case O(n^2) becomes exponentially unlikely.
       - An insertion sort is used for subarrays of size 10 or less. This is because the insertion sort is more optimal for very small arrays.
