@@ -87,8 +87,8 @@ Click to expand the 43 *C++ programs*!
     - You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists a direct path going from cityAi to cityBi. Return the destination city, that is, the city without any path outgoing to another city.
     - Leetcode problem [here](https://leetcode.com/problems/destination-city/)
   - fibonacci.cpp
-    - five ways of making the fibonacci sequence
-    - naive recursive, two memoized recursive, two sequential
+    - six ways of making the fibonacci sequence
+    - naive recursive, two memoized recursive, two sequential, one constant
   - flippingAnImage.cpp
     - Given a binary matrix A, we want to flip the image horizontally, then invert it, and return the resulting image.
     - Leetcode problem [here](https://leetcode.com/problems/flipping-an-image/)

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <math.h>
 
 using namespace std;
 
@@ -77,6 +78,14 @@ int fib5(int num) {
   return res;
 }
 
+/** Constant time solution from solving a recurrence relation :) */
+int fib6(float num) {
+  float sqrt5 = sqrt(5);
+
+  return ( 1.0/sqrt5*pow(0.5+sqrt5/2.0, num) - 1.0/sqrt5*pow(0.5-sqrt5/2.0, num) );
+}
+
+
 
 int main(void) {
   int num;
@@ -90,6 +99,12 @@ int main(void) {
   cout << "fib 2: " << fib2(num, prev) << endl;
 
   cout << "fib 3: " << fib3(num) << endl;
+
+  cout << "fib 4: " << fib4(num) << endl;
+
+  cout << "fib 5: " << fib5(num) << endl;
+
+  cout << "fib 6: " << fib6(num) << endl;
 
   return 0;
 }
