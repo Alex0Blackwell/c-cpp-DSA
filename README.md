@@ -41,7 +41,7 @@ Click to expand the 9 *C programs*!
 </details>
 
 #### C++ Programs
-Click to expand the 44 *C++ programs*!
+Click to expand the 43 *C++ programs*!
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -121,6 +121,9 @@ Click to expand the 44 *C++ programs*!
   - nAryPreorderTreeTraversal.cpp
     - Given an n-ary tree, return the preorder traversal of its nodes' values.
     - Leetcode problem found [here](https://leetcode.com/problems/n-ary-tree-preorder-traversal/)
+  - nAryPreorderTreeTraversal.cpp
+    - Given an n-ary tree, return the postorder traversal of its nodes' values.
+    - Leetcode problem found [here](https://leetcode.com/problems/n-ary-tree-postorder-traversal/)
   - nonDecreasingArray.cpp
     - Given an array nums with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element. We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
     - Leetcode problem found [here](https://leetcode.com/problems/non-decreasing-array/)
