@@ -108,6 +108,9 @@ Click to expand the 42 *C++ programs*!
   - maxProductInArr.cpp
     - Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)\*(nums[j]-1).
     - Leetcode problem found [here](https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/)
+  - mergeTwoBinaryTrees.cpp
+    - Given two binary trees and imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge them into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of new tree.
+    - Leetcode problem found [here](https://leetcode.com/problems/merge-two-binary-trees/)
   - mergeTwoSortedLists.cpp
     - Merge two sorted linked lists and return it as a new sorted list. The new list should be made by splicing together the nodes of the first two lists.
     - Leetcode problem found [here](https://leetcode.com/explore/learn/card/recursion-i/253/conclusion/2382/)
