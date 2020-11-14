@@ -41,7 +41,7 @@ Click to expand the 9 *C programs*!
 </details>
 
 #### C++ Programs
-Click to expand the 43 *C++ programs*!
+Click to expand the 44 *C++ programs*!
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -154,6 +154,8 @@ Click to expand the 43 *C++ programs*!
   - sortArrayByParity.cpp
     - Given an array A of non-negative integers, half of the integers in A are odd, and half of the integers are even. Sort the array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is even.
     - Leetcode problem found [here](https://leetcode.com/problems/sort-array-by-parity-ii/)
+  - squareN.cpp
+    - Use a generating function to square a number
   - strReverseInP.cpp
     - reverse string in place
   - sumNodesEvenGrandparent.cpp
