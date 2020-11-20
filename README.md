@@ -41,7 +41,7 @@ Click to expand the 9 *C programs*!
 </details>
 
 #### C++ Programs
-Click to expand the 46 *C++ programs*!
+Click to expand the 47 *C++ programs*!
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -154,6 +154,9 @@ Click to expand the 46 *C++ programs*!
   - sortArrayByParity.cpp
     - Given an array A of non-negative integers, half of the integers in A are odd, and half of the integers are even. Sort the array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is even.
     - Leetcode problem found [here](https://leetcode.com/problems/sort-array-by-parity-ii/)
+  - sortedArrayToBST.cpp
+    - Given an array where elements are sorted in ascending order, convert it to a height balanced BST. For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+    - Leetcode problem found [here](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
   - squareN.cpp
     - Use a generating function to square a number
   - strReverseInP.cpp
