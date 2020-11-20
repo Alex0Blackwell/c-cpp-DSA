@@ -41,7 +41,7 @@ Click to expand the 9 *C programs*!
 </details>
 
 #### C++ Programs
-Click to expand the 47 *C++ programs*!
+Click to expand the 48 *C++ programs*!
 
 <details>
   <summary>Expand C++ Programs</summary>
@@ -172,6 +172,9 @@ Click to expand the 47 *C++ programs*!
   - trimBST.cpp
     - Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. Trimming the tree should not change the relative structure of the elements that will remain in the tree (i.e., any node's descendant should remain a descendant). It can be proven that there is a unique answer.
     - Leetcode problem found [here](https://leetcode.com/problems/trim-a-binary-search-tree/)
+  - twoSumBST.cpp
+    - Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+    - Leetcode problem found [here](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
   - univaluedBinaryTree.cpp
     - Leetcode problem found [here](https://leetcode.com/problems/univalued-binary-tree/)
   - word2num.cpp
