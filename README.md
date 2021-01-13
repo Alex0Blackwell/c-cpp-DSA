@@ -32,6 +32,8 @@ Click to expand the 9 *C programs*!
     - reverse an array in place
   - reverseStr.c
     - reverse string
+  - smallerNumbersThanCurrent
+    - Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it.
   - squareCalc.c
     - return the square of a number with just addition
     - inductive assert
